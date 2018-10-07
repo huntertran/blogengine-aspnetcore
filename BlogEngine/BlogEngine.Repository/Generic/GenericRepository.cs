@@ -1,13 +1,13 @@
-﻿namespace BlogEngine.Repository
+﻿namespace BlogEngine.Repository.Generic
 {
-    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using Data;
+    using Microsoft.EntityFrameworkCore;
 
-    public class GenericRepository<TEntity> where TEntity:class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity:class
     {
         private readonly ApplicationDbContext _context;
 
@@ -65,7 +65,7 @@
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = _dbSet.Find(id);
+            var entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
 
@@ -82,6 +82,11 @@
         {
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public void Dispose()
+        {
+            _context?.Dispose();
         }
     }
 }
