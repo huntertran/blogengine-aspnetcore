@@ -1,4 +1,4 @@
-﻿namespace BlogEngine
+﻿namespace BlogEngine.Client
 {
     using Data;
     using Microsoft.AspNetCore.Builder;

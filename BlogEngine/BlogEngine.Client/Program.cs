@@ -1,4 +1,4 @@
-﻿namespace BlogEngine
+﻿namespace BlogEngine.Client
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;

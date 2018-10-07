@@ -1,4 +1,4 @@
-﻿namespace BlogEngine.Controllers
+﻿namespace BlogEngine.Client.Controllers
 {
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;

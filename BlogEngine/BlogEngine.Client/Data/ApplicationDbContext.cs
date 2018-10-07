@@ -1,8 +1,8 @@
-﻿namespace BlogEngine.Data
+﻿namespace BlogEngine.Client.Data
 {
+    using BlogEngine.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Models;
 
     public class ApplicationDbContext : IdentityDbContext
     {

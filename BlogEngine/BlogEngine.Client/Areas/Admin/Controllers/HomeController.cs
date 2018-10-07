@@ -1,4 +1,4 @@
-﻿namespace BlogEngine.Areas.Admin.Controllers
+﻿namespace BlogEngine.Client.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 

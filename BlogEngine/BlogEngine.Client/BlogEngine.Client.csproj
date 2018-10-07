@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BlogEngine.Models\BlogEngine.Models.csproj" />
+    <ProjectReference Include="..\BlogEngine.Models\BlogEngine.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
