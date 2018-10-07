@@ -1,4 +1,4 @@
-﻿namespace BlogEngine.Client.Data.Migrations
+﻿namespace BlogEngine.Repository.Data.Migrations
 {
     using System;
     using Microsoft.EntityFrameworkCore.Metadata;
