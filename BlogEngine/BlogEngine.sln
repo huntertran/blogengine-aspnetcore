@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogEngine.Client", "BlogEn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogEngine.Models", "BlogEngine.Models\BlogEngine.Models.csproj", "{D04F157F-89BE-4503-A975-B61A3090CDB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogEngine.Repository", "BlogEngine.Repository\BlogEngine.Repository.csproj", "{F43F7EBF-601C-4A98-BAAC-7CE02358091C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogEngine.Repository", "BlogEngine.Repository\BlogEngine.Repository.csproj", "{F43F7EBF-601C-4A98-BAAC-7CE02358091C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{34DB5477-934F-4123-830A-CCCE0B0BF740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

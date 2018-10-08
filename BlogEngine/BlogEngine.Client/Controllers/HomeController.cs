@@ -1,9 +1,11 @@
 ﻿namespace BlogEngine.Client.Controllers
 {
     using System.Diagnostics;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
 
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public IActionResult Index()
