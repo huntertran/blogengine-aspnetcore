@@ -1,11 +1,11 @@
 ﻿namespace BlogEngine.Repository.Generic
 {
+    using Data;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using Data;
-    using Microsoft.EntityFrameworkCore;
 
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity:class
     {
