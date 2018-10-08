@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     public interface IGenericRepository<TEntity> : IDisposable
     {
@@ -21,5 +22,24 @@
         void Delete(TEntity entityToDelete);
 
         void Update(TEntity entityToUpdate);
+
+        bool Exists(object id);
+
+        void SaveChanges();
+
+        Task<IEnumerable<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "");
+
+        Task<TEntity> GetByIdAsync(object id);
+
+        Task InsertAsync(TEntity entity);
+
+        Task DeleteAsync(object id);
+
+        Task<bool> ExistsAsync(object id);
+
+        Task SaveChangesAsync();
     }
 }

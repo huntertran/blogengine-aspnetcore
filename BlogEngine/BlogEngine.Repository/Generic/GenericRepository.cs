@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity:class
     {
@@ -46,10 +47,38 @@
             {
                 return orderBy(query).ToList();
             }
-            else
+
+            return query.ToList();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            // query is IQueryable, only executed when call ToList
+            if (filter != null)
             {
-                return query.ToList();
+                query = query.Where(filter);
             }
+
+            // next, it include properties by user
+            var properties = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var includeProperty in properties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            // finally, it translated to SQL and call DB
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+
+            return await query.ToListAsync();
         }
 
         // Id can be GUID or int or string
@@ -58,14 +87,31 @@
             return _dbSet.Find(id);
         }
 
+        public virtual async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
         public virtual void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
         }
 
+        public virtual async Task InsertAsync(TEntity entity)
+        {
+            await _dbSet.AddAsync(entity);
+        }
+
         public virtual void Delete(object id)
         {
             var entityToDelete = _dbSet.Find(id);
+            Delete(entityToDelete);
+        }
+
+        public virtual async Task DeleteAsync(object id)
+        {
+            var entityToDelete = await GetByIdAsync(id);
+
             Delete(entityToDelete);
         }
 
@@ -75,6 +121,7 @@
             {
                 _dbSet.Attach(entityToDelete);
             }
+
             _dbSet.Remove(entityToDelete);
         }
 
@@ -82,6 +129,28 @@
         {
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public bool Exists(object id)
+        {
+            var item = GetById(id);
+            return item != null;
+        }
+
+        public async Task<bool> ExistsAsync(object id)
+        {
+            var item = await GetByIdAsync(id);
+            return item != null;
+        }
+
+        public virtual async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public virtual void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         public void Dispose()
