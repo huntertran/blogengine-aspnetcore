@@ -6,6 +6,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\API\Data\**" />
+    <Compile Remove="Areas\API\Models\**" />
+    <Compile Remove="Areas\API\Views\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\API\Data\**" />
+    <Content Remove="Areas\API\Models\**" />
+    <Content Remove="Areas\API\Views\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\API\Data\**" />
+    <EmbeddedResource Remove="Areas\API\Models\**" />
+    <EmbeddedResource Remove="Areas\API\Views\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\API\Data\**" />
+    <None Remove="Areas\API\Models\**" />
+    <None Remove="Areas\API\Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
   </ItemGroup>
@@ -13,14 +36,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BlogEngine.Models\BlogEngine.Models.csproj" />
     <ProjectReference Include="..\BlogEngine.Repository\BlogEngine.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\API\Data\" />
-    <Folder Include="Areas\API\Models\" />
-    <Folder Include="Areas\API\Views\" />
   </ItemGroup>
 
 </Project>

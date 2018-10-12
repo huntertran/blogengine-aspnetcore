@@ -1,12 +1,11 @@
-﻿
-
-namespace BlogEngine.Repository.Data
+﻿namespace BlogEngine.Repository.Data
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Threading.Tasks;
+    using Models;
 
     public class SeedData
     {
@@ -33,12 +32,12 @@ namespace BlogEngine.Repository.Data
             string userPassword,
             string userName)
         {
-            var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
 
             var user = await userManager.FindByNameAsync(userName);
             if (user == null)
             {
-                user = new IdentityUser { UserName = userName };
+                user = new ApplicationUser { UserName = userName };
                 await userManager.CreateAsync(user, userPassword);
             }
 
@@ -62,7 +61,7 @@ namespace BlogEngine.Repository.Data
                 await roleManager.CreateAsync(new IdentityRole(role));
             }
 
-            var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
 
             var user = await userManager.FindByIdAsync(uid);
 
