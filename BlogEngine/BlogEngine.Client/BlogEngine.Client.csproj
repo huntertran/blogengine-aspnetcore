@@ -31,11 +31,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.163" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlogEngine.Models\BlogEngine.Models.csproj" />
     <ProjectReference Include="..\BlogEngine.Repository\BlogEngine.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
 </Project>
