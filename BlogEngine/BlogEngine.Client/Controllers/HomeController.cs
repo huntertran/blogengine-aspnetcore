@@ -13,6 +13,7 @@
             return View();
         }
 
+        [Authorize(Policy = "RoleAdmin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
