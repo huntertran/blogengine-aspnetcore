@@ -1,6 +1,5 @@
 ﻿namespace BlogEngine.Services.Policy
 {
-    using System.Runtime.CompilerServices;
     using Microsoft.AspNetCore.Authorization;
 
     public class RolePolicyRequirement : IAuthorizationRequirement
