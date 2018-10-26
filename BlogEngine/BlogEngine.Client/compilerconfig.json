@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/admin/css/admin-site.css",
+    "inputFile": "wwwroot/admin/css/admin-site.scss"
+  },
+  {
+    "outputFile": "wwwroot/admin/js/admin-site.min.js",
+    "inputFile": "wwwroot/admin/js/admin-site.js"
+  }
+]

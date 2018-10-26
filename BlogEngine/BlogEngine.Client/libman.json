@@ -20,7 +20,7 @@
     },
     {
       "library": "vue@2.5.17",
-      "destination": "wwwroot/vue/"
+      "destination": "wwwroot/lib/vue/"
     }
   ]
 }
