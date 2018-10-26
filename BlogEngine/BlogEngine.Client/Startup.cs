@@ -1,7 +1,7 @@
 ﻿namespace BlogEngine.Client
 {
+    using Authorization;
     using BlogEngine.Models;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -36,21 +36,21 @@
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddRoles<IdentityRole>()
+
+            services.AddIdentityWithCookieAndJwt<IdentityUser, IdentityRole>(Configuration)
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddAuthorization(options =>
-                {
-                    options.AddPolicy(PolicyName.RoleAdmin.ToString(),
-                        policy => policy.RequireRole(RoleName.Admin.ToString()));
-                    options.AddPolicy(PolicyName.RoleWriter.ToString(),
-                        policy => policy.RequireRole(RoleName.Writer.ToString()));
-                });
+            {
+                options.AddPolicy(PolicyName.RequireAdmin.ToString(), policy => policy.RequireRole(RoleName.Admin.ToString()));
+                options.AddPolicy(PolicyName.RequireWriter.ToString(), policy => policy.RequireRole(RoleName.Writer.ToString()));
+            });
 
-            services.AddSingleton<IAuthorizationHandler, RolePolicyHandler>();
             services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
         }
 

@@ -8,7 +8,7 @@
 
     public enum PolicyName
     {
-        RoleAdmin,
-        RoleWriter
+        RequireAdmin,
+        RequireWriter
     }
 }
