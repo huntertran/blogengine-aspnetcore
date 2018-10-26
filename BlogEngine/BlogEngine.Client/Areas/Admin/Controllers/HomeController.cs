@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Area(nameof(Admin))]
-    [Authorize]
+    [Authorize(Policy = "RequireAdmin")]
     public class HomeController : Controller
     {
         public IActionResult Index()
