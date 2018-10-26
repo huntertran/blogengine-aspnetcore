@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Repository.Data;
@@ -21,10 +20,10 @@
                 var context = services.GetRequiredService<ApplicationDbContext>();
                 context.Database.Migrate();
 
-                // requires using Microsoft.Extensions.Configuration;
-                var config = host.Services.GetRequiredService<IConfiguration>();
-                // Set password with the Secret Manager tool.
-                // dotnet user-secrets set SeedUserPW <pw>
+                //// requires using Microsoft.Extensions.Configuration;
+                //var config = host.Services.GetRequiredService<IConfiguration>();
+                //// Set password with the Secret Manager tool.
+                //// dotnet user-secrets set SeedUserPW <pw>
 
                 var testUserPw = "8PNddq5zFB6_zjQ";
 

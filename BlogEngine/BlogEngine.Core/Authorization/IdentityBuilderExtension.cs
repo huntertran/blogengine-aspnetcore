@@ -1,4 +1,4 @@
-﻿namespace BlogEngine.Client.Authorization
+﻿namespace BlogEngine.Core.Authorization
 {
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication.JwtBearer;

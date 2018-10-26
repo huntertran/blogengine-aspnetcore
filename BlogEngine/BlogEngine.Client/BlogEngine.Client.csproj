@@ -30,11 +30,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.163" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlogEngine.Core\BlogEngine.Core.csproj" />
     <ProjectReference Include="..\BlogEngine.Models\BlogEngine.Models.csproj" />
     <ProjectReference Include="..\BlogEngine.Repository\BlogEngine.Repository.csproj" />
     <ProjectReference Include="..\BlogEngine.Services\BlogEngine.Services.csproj" />

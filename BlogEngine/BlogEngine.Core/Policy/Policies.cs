@@ -1,4 +1,4 @@
-﻿namespace BlogEngine.Services.Policy
+﻿namespace BlogEngine.Core.Policy
 {
     public enum RoleName
     {

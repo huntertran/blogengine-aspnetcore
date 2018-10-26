@@ -1,15 +1,16 @@
 ﻿namespace BlogEngine.Client.Areas.API.Controllers
 {
     using BlogEngine.Models;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Repository.Generic;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "RequireAdmin")]
     public class CategoriesController : ControllerBase
     {
         private readonly IGenericRepository<Category> _repository;
@@ -18,17 +19,15 @@
         {
             _repository = repository;
         }
-
-        // GET: api/Categories
+        
         [HttpGet]
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<Category> All()
         {
             return _repository.Get();
         }
-
-        // GET: api/Categories/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory([FromRoute] int id)
+        
+        [HttpGet]
+        public async Task<IActionResult> Find([FromQuery] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -46,8 +45,8 @@
         }
 
         // PUT: api/Categories/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -63,10 +62,9 @@
             await _repository.SaveChangesAsync();
             return Ok(category);
         }
-
-        // POST: api/Categories
+        
         [HttpPost]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        public async Task<IActionResult> Post([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -76,12 +74,12 @@
             _repository.Insert(category);
             await _repository.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction("Find", new { id = category.Id }, category);
         }
 
         // DELETE: api/Categories/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {

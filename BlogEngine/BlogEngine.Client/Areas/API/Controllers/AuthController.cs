@@ -1,70 +1,49 @@
 ﻿namespace BlogEngine.Client.Areas.API.Controllers
 {
     using BlogEngine.Models;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.IdentityModel.Tokens;
-    using System;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Security.Claims;
-    using System.Text;
+    using Services.Identity;
     using System.Threading.Tasks;
     using ViewModels;
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
+    [Area(nameof(API))]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IConfiguration _config;
+        private readonly IIdentityService _identityService;
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IConfiguration config)
+            IIdentityService identityService)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _config = config;
+            _identityService = identityService;
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> GenerateToken([FromBody] LoginViewModel viewModel)
+        [HttpGet]
+        public async Task<IActionResult> Login([FromQuery] AuthViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(viewModel.Email);
+                // find user
+                var user = await _userManager.FindByNameAsync(viewModel.Username);
+
                 if (user != null)
                 {
-                    var result = await _signInManager.CheckPasswordSignInAsync(user, viewModel.Password, false);
-                    if (result.Succeeded)
+                    var validPassword = await _userManager.CheckPasswordAsync(user, viewModel.Password);
+
+                    if (validPassword)
                     {
-                        var claims = new[]
-                        {
-                            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                        };
-
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                        var token = new JwtSecurityToken(
-                            _config["Tokens:Issuer"],
-                            _config["Tokens:Issuer"],
-                            claims,
-                            expires: DateTime.Now.AddDays(30),
-                            signingCredentials: creds);
-
-                        return Ok(new {token = new JwtSecurityTokenHandler().WriteToken(token)});
+                        var token = await _identityService.GenerateToken(user);
+                        return Ok(token);
                     }
                 }
             }
 
-            return BadRequest("Could not create token");
+            return NotFound();
         }
     }
 }

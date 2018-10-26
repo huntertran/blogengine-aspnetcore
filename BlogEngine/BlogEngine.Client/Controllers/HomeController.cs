@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
 
-    [AllowAnonymous]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -13,7 +12,7 @@
             return View();
         }
 
-        [Authorize(Policy = "RoleAdmin")]
+        [Authorize(Policy = "RequireAdmin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

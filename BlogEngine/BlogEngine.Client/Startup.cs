@@ -1,7 +1,8 @@
 ﻿namespace BlogEngine.Client
 {
-    using Authorization;
     using BlogEngine.Models;
+    using Core.Authorization;
+    using Core.Policy;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Repository.Data;
     using Repository.Generic;
-    using Services.Policy;
+    using Services.Identity;
 
     public class Startup
     {
@@ -37,7 +38,7 @@
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentityWithCookieAndJwt<IdentityUser, IdentityRole>(Configuration)
+            services.AddIdentityWithCookieAndJwt<ApplicationUser, IdentityRole>(Configuration)
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
@@ -51,6 +52,7 @@
                 options.AddPolicy(PolicyName.RequireWriter.ToString(), policy => policy.RequireRole(RoleName.Writer.ToString()));
             });
 
+            services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
         }
 
