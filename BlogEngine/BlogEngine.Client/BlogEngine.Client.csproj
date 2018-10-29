@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
+    <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
   <ItemGroup>
