@@ -72,7 +72,7 @@
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromQuery] int id)
         {
             if (!ModelState.IsValid)
             {

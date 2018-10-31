@@ -20,16 +20,16 @@ var vm = new Vue({
         addCategory: function () {
             $("#category-add").modal("show");
         },
-        deleteCategory: function(category){
+        deleteCategory: function (category) {
             var result = confirm("Do you want to delete category '" + category.name + "' pernamently?");
-            if(result){
-                axios.delete("/api/Categories/Delete", category.id)
-                .then(function (response) {
-                    if(response.status === 200){
-                        alert("Category '" + category.name + "' is deleted");
-                        vm.getAllCategories();
-                    }
-                });
+            if (result) {
+                axios.delete("/api/Categories/Delete?id=" + category.id)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            alert("Category '" + category.name + "' is deleted");
+                            vm.getAllCategories();
+                        }
+                    });
             }
         }
     },
