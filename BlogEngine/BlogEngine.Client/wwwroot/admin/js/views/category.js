@@ -18,6 +18,7 @@ var vm = new Vue({
             $("#category-edit").modal("show");
         },
         addCategory: function () {
+            addCategory.category.name = "";
             $("#category-add").modal("show");
         },
         deleteCategory: function (category) {
