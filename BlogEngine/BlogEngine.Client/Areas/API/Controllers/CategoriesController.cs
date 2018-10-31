@@ -44,18 +44,12 @@
             return Ok(category);
         }
 
-        // PUT: api/Categories/5
         [HttpPut]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] Category category)
+        public async Task<IActionResult> Put([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != category.Id)
-            {
-                return BadRequest();
             }
 
             _repository.Update(category);
@@ -77,9 +71,8 @@
             return CreatedAtAction("Find", new { id = category.Id }, category);
         }
 
-        // DELETE: api/Categories/5
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {

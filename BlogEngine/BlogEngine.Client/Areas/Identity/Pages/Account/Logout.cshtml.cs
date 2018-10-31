@@ -23,8 +23,10 @@ namespace BlogEngine.Client.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
+            // force logout
+            await _signInManager.SignOutAsync();
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)

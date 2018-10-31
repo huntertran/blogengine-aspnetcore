@@ -4,20 +4,27 @@
     }
 });
 
+axios.interceptors.request.use(function (config) {
+    config.headers['Authorization'] = 'Bearer ' + localStorage.token;
+    return config;
+}, function (err) {
+    return Promise.reject(err);
+});
+
 var admin = {
-    init: function() {
+    init: function () {
         admin.assignMenuToggleButton();
     },
 
-    assignMenuToggleButton: function() {
+    assignMenuToggleButton: function () {
         $("#menu-toggle").on("click",
-            function(e) {
+            function (e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
     }
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     admin.init();
 });
