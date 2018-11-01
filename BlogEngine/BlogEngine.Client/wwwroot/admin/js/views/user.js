@@ -4,78 +4,44 @@ var vm = new Vue({
         results: []
     },
     methods: {
-        getAllCategories: function () {
-            axios.get("/api/Categories/All").then(function (response) {
+        getAll: function () {
+            axios.get("/api/Users/All").then(function (response) {
                 vm.results = response.data;
             });
         },
         showEditModal: function (id) {
-            axios.get("/api/Categories/Find?id=" + id)
+            axios.get("/api/Users/Find?userId=" + id)
                 .then(function (response) {
-                    editCategory.category = response.data;
+                    editVm.user = response.data;
                 });
 
-            $("#category-edit").modal("show");
-        },
-        addCategory: function () {
-            addCategory.category.name = "";
-            $("#category-add").modal("show");
-        },
-        deleteCategory: function (category) {
-            var result = confirm("Do you want to delete category '" + category.name + "' pernamently?");
-            if (result) {
-                axios.delete("/api/Categories/Delete?id=" + category.id)
-                    .then(function (response) {
-                        if (response.status === 200) {
-                            alert("Category '" + category.name + "' is deleted");
-                            vm.getAllCategories();
-                        }
-                    });
-            }
+            $("#user-edit").modal("show");
         }
     },
     mounted() {
-        this.getAllCategories();
+        this.getAll();
     }
 });
 
-var editCategory = new Vue({
-    el: "#category-edit",
+var editVm = new Vue({
+    el: "#user-edit",
     data: {
-        category: {
+        user: {
             id: "",
-            name: ""
+            userName: "",
+            email: "",
+            phoneNumber: "",
+            roles: []
         }
     },
     methods: {
-        editCategory: function () {
-            axios.put("/api/Categories/Put", editCategory.category)
+        edit: function () {
+            axios.put("/api/Users/Put", editVm.user)
                 .then(function (response) {
                     if (response.status === 200) {
                         // update category in vm
-                        vm.getAllCategories();
-                        $("#category-edit").modal("hide");
-                    }
-                });
-        }
-    }
-});
-
-var addCategory = new Vue({
-    el: "#category-add",
-    data: {
-        category: {
-            name: ""
-        }
-    },
-    methods: {
-        addCategory: function () {
-            axios.post("/api/Categories/Post", addCategory.category)
-                .then(function (response) {
-                    if (response.status === 201) {
-                        // update category in vm
-                        vm.getAllCategories();
-                        $("#category-add").modal("hide");
+                        vm.getAll();
+                        $("#user-edit").modal("hide");
                     }
                 });
         }
