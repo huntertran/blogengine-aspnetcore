@@ -33,6 +33,9 @@
                     <a asp-controller="User" asp-action="Index">Users</a>
                 </li>
                 <li>
+                    <a asp-controller="Post" asp-action="Index">Posts</a>
+                </li>
+                <li>
                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
                         <button type="submit" class="btn btn-danger">Logout</button>
                     </form>

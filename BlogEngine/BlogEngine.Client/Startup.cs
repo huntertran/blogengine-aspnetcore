@@ -54,6 +54,7 @@
 
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
+            services.AddScoped<IGenericRepository<Post>, GenericRepository<Post>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
