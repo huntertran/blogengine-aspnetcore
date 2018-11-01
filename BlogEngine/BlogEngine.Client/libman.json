@@ -25,6 +25,10 @@
     {
       "library": "axios@0.18.0",
       "destination": "wwwroot/lib/axios/"
+    },
+    {
+      "library": "tinymce@4.8.5",
+      "destination": "wwwroot/lib/tinymce/"
     }
   ]
 }
