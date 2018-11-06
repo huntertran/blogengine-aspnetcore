@@ -1,5 +1,6 @@
 ﻿namespace BlogEngine.Client.Areas.API.Controllers
 {
+    using System;
     using BlogEngine.Models;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
@@ -34,6 +35,10 @@
             {
                 return BadRequest(ModelState);
             }
+
+            post.CreatedDateTime = DateTime.UtcNow;
+            post.EditedDateTime = DateTime.UtcNow;
+            post.PostedDateTime = DateTime.UtcNow;
 
             _repository.Insert(post);
             await _repository.SaveChangesAsync();

@@ -6,7 +6,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Repository.Generic;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using ViewModels;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -21,9 +23,10 @@
         }
         
         [HttpGet]
-        public IEnumerable<Category> All()
+        public IEnumerable<CategoryViewModel> All()
         {
-            return _repository.Get();
+            var categories = _repository.Get();
+            return categories.Select(x => new CategoryViewModel(x));
         }
         
         [HttpGet]
