@@ -9,11 +9,6 @@ export default {
   name: "App",
   components: {
     Layout
-  },
-  data() {
-    return {
-      isDrawerOpen: false
-    };
   }
 };
 </script>

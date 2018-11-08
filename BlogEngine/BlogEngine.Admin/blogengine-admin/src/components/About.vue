@@ -9,8 +9,8 @@
     </v-container>
 </template>
 
-// <script>
-// export default {
-//   name: "About"
-// };
-// </script>
+<script>
+export default {
+  name: "About"
+};
+</script>
