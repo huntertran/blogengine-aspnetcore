@@ -2,7 +2,8 @@
   <v-app dark>
     <v-navigation-drawer app :width="drawerWidth" v-model="isDrawerOpen" clipped>
       <v-list dense>
-          <v-list-tile v-for="menu in menus" :key="menu.text" v-on:click="menuClicked(menu)" ripple>
+        <template v-for="menu in menus">
+          <v-list-tile v-if="!menu.children" :key="menu.text" v-on:click="menuClicked(menu)" ripple>
             <v-list-tile-action>
               <v-icon>{{menu.icon}}</v-icon>
             </v-list-tile-action>
@@ -10,6 +11,22 @@
               <v-list-tile-title>{{menu.text}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+          <v-list-group v-else :key="menu.text" :prepend-icon="menu.icon" ripple>
+            <v-list-tile slot="activator" ripple>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ menu.text }}</v-list-tile-title>
+              </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile v-for="subMenu in menu.children" :key="subMenu.text" ripple @click="menuClicked(subMenu)">
+                  <v-list-tile-action>
+                      <v-icon>{{ subMenu.icon }}</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-content>
+                      <v-list-tile-title>{{ subMenu.text }}</v-list-tile-title>
+                  </v-list-tile-content>
+              </v-list-tile>
+          </v-list-group>
+        </template>
       </v-list>
       <v-list dense class="hidden-md-and-up">
           <v-list-tile v-for="button in topButtons" :key="button.text" v-on:click="menuClicked(menu)" ripple>
@@ -59,7 +76,20 @@ export default {
       {
         icon: "edit",
         text: "Posts",
-        url: "/Post"
+        isOpen: false,
+        children: [
+          { text: "All Posts", url: "/posts" },
+          { text: "Add New", url: "/posts/add" }
+        ]
+      },
+      {
+        icon: "view_module",
+        text: "Categories",
+        isOpen: false,
+        children: [
+          { text: "All Categories", url: "/categories" },
+          { text: "Add New", url: "/categories/add" }
+        ]
       }
     ],
     topButtons: [

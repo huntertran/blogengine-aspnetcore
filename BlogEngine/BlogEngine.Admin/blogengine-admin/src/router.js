@@ -4,6 +4,9 @@ import VueRouter from "vue-router";
 import About from "./components/About";
 import Home from "./components/Home";
 
+// Categories
+import AllCategories from "./components/categories/AllCategories";
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -18,6 +21,11 @@ const router = new VueRouter({
       path: "/About",
       name: "about",
       component: About
+    },
+    {
+      path: "/Categories",
+      name: "categories",
+      component: AllCategories
     }
   ]
 });
