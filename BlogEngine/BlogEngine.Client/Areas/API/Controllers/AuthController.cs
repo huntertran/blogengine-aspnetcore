@@ -8,7 +8,6 @@
     using ViewModels;
 
     [Route("api/[controller]/[action]")]
-    [Area(nameof(API))]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -23,8 +22,8 @@
             _identityService = identityService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Login([FromQuery] AuthViewModel viewModel)
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] AuthViewModel viewModel)
         {
             if (ModelState.IsValid)
             {

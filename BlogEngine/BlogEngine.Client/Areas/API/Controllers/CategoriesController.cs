@@ -11,6 +11,7 @@
     using ViewModels;
 
     [Route("api/[controller]/[action]")]
+    [Area(nameof(API))]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "RequireAdmin")]
     public class CategoriesController : ControllerBase
@@ -21,14 +22,14 @@
         {
             _repository = repository;
         }
-        
+
         [HttpGet]
         public IEnumerable<CategoryViewModel> All()
         {
             var categories = _repository.Get();
             return categories.Select(x => new CategoryViewModel(x));
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Find([FromQuery] int id)
         {
@@ -59,7 +60,7 @@
             await _repository.SaveChangesAsync();
             return Ok(category);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Category category)
         {
