@@ -108,8 +108,8 @@ export default {
       },
       {
         icon: "exit_to_app",
-        text: "Sign out",
-        name: "signout"
+        text: "Log out",
+        name: "logout"
       }
     ]
   }),

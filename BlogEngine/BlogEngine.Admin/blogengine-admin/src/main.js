@@ -26,7 +26,8 @@ Vue.prototype.$http.defaults.baseURL = "http://localhost:5000";
 Vue.prototype.$http.defaults.crossDomain = true;
 
 if (token) {
-  Vue.prototype.$http.defaults.headers.common["Authorization"] = token;
+  Vue.prototype.$http.defaults.headers.common["Authorization"] =
+    "Bearer " + token;
 }
 
 new Vue({

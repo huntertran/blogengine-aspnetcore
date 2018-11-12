@@ -6,9 +6,9 @@
     class="elevation-1"
   >
     <template slot="items" slot-scope="props">
-      <td>{{ props.item.no }}</td>
-      <td class="text-xs-right">{{ props.item.name }}</td>
-      <td class="text-xs-right">{{ props.item.action }}</td>
+      <td>{{ props.item.id }}</td>
+      <td>{{ props.item.name }}</td>
+      <td>{{ props.item.action }}</td>
     </template>
   </v-data-table>
 </template>
@@ -17,22 +17,23 @@
 import axios from "axios";
 
 export default {
-  data() {
+  data: function() {
     return {
       headers: [
-        { text: "No.", align: "left", sortable: false, value: "no" },
+        { text: "No.", align: "left", value: "id" },
         { text: "Name", align: "left", value: "name" },
-        { text: "Action", align: "left", value: "action" }
+        { text: "Action", align: "left", value: "action", sortable: false }
       ],
       categories: []
     };
   },
   methods: {
     getAllCategories: function() {
+      var data = this;
       axios.get("/api/Categories/All").then(function(response) {
-        this.categories = response.data;
+        data.categories = response.data;
       });
-    },
+    }
     // showEditModal: function(id) {
     //   axios.get("/api/Categories/Find?id=" + id).then(function(response) {
     //     editCategory.category = response.data;

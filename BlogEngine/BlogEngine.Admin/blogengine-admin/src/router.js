@@ -11,6 +11,7 @@ import store from "./store.js";
 
 // Categories
 import AllCategories from "./components/categories/AllCategories";
+import AddCategory from "./components/categories/AddCategory";
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,11 @@ const router = new VueRouter({
       path: "/Categories",
       name: "categories",
       component: AllCategories
+    },
+    {
+      path: "/Categories/Add",
+      name: "addcategory",
+      component: AddCategory
     }
   ]
 });
