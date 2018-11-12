@@ -10,6 +10,7 @@
       <td>{{ props.item.id }}</td>
       <td>{{ props.item.name }}</td>
       <td>
+        <v-btn small flat color="success" v-on:click="showEditCategoryDialog(props.item.id)">Edit</v-btn>
         <v-btn small flat color="error" v-on:click="showConfirmation(props.item.id)">Delete</v-btn>
       </td>
     </template>
@@ -21,10 +22,6 @@
     >
       <v-card>
         <v-card-title class="headline">Delete category?</v-card-title>
-
-        <!-- <v-card-text>
-          Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-        </v-card-text> -->
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -47,6 +44,42 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+  <v-dialog v-model="edit.show" max-width="290">
+    <v-card>
+      <v-card-title class="headline">Edit Category</v-card-title>
+
+      <v-card-text>
+        <v-container grid-list-md>
+          <v-layout wrap>
+            <v-flex xs12>
+                <v-text-field v-model="edit.category.name" label="Category Name" required></v-text-field>
+              </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card-text>
+
+      <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="edit.show = false"
+          >
+            Cancel
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="editCategory(edit.category)"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+    </v-card>
+  </v-dialog>
 
   <v-snackbar v-model="snackbar" :right="true" :bottom="true" :timeout="500">
       {{ message }}
@@ -73,6 +106,13 @@ export default {
       message: "",
       showDeleteDialog: false,
       categoryIdToDelete: 0,
+      edit: {
+        show: false,
+        category: {
+          id: 0,
+          name: ""
+        }
+      },
       headers: [
         { text: "No.", align: "left", value: "id" },
         { text: "Name", align: "left", value: "name" },
@@ -82,6 +122,14 @@ export default {
     };
   },
   methods: {
+    getSingleCategoryFromArray: function(id) {
+      var _this = this;
+      var filteredItems = _this.categories.filter(function(element) {
+        return element.id === id;
+      });
+
+      return filteredItems[0].name;
+    },
     getAllCategories: function() {
       var _this = this;
       axios.get("/api/Categories/All").then(function(response) {
@@ -103,33 +151,22 @@ export default {
           _this.getAllCategories();
         }
       });
+    },
+    showEditCategoryDialog: function(id) {
+      var _this = this;
+      _this.edit.category.id = id;
+      _this.edit.category.name = _this.getSingleCategoryFromArray(id);
+      _this.edit.show = true;
+    },
+    editCategory: function(category) {
+      var _this = this;
+      axios.put("/api/Categories/Put", category).then(function(response) {
+        if (response.status === 200) {
+          _this.edit.show = false;
+          _this.getAllCategories();
+        }
+      });
     }
-    // showEditModal: function(id) {
-    //   axios.get("/api/Categories/Find?id=" + id).then(function(response) {
-    //     editCategory.category = response.data;
-    //   });
-
-    //   $("#category-edit").modal("show");
-    // },
-    // addCategory: function() {
-    //   addCategory.category.name = "";
-    //   $("#category-add").modal("show");
-    // },
-    // deleteCategory: function(category) {
-    //   var result = confirm(
-    //     "Do you want to delete category '" + category.name + "' pernamently?"
-    //   );
-    //   if (result) {
-    //     axios
-    //       .delete("/api/Categories/Delete?id=" + category.id)
-    //       .then(function(response) {
-    //         if (response.status === 200) {
-    //           alert("Category '" + category.name + "' is deleted");
-    //           vm.getAllCategories();
-    //         }
-    //       });
-    //   }
-    // }
   },
   mounted() {
     this.getAllCategories();
