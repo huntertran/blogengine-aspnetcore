@@ -1,16 +1,31 @@
 <template>
-  <v-data-table
+  <v-container>
+    <v-data-table
     :headers="headers"
     :items="categories"
     hide-actions
     class="elevation-1"
-  >
+    >
     <template slot="items" slot-scope="props">
       <td>{{ props.item.id }}</td>
       <td>{{ props.item.name }}</td>
-      <td>{{ props.item.action }}</td>
+      <td>
+        <v-btn small flat color="error" v-on:click="deleteCategory(props.item.id)">Delete</v-btn>
+      </td>
     </template>
   </v-data-table>
+  <v-snackbar v-model="snackbar" :right="true" :bottom="true" :timeout="500">
+      {{ message }}
+      <v-btn
+        color="pink"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+  </v-container>
+  
 </template>
 
 <script>
@@ -19,6 +34,8 @@ import axios from "axios";
 export default {
   data: function() {
     return {
+      snackbar: false,
+      message: "",
       headers: [
         { text: "No.", align: "left", value: "id" },
         { text: "Name", align: "left", value: "name" },
@@ -29,9 +46,21 @@ export default {
   },
   methods: {
     getAllCategories: function() {
-      var data = this;
+      var _this = this;
       axios.get("/api/Categories/All").then(function(response) {
-        data.categories = response.data;
+        _this.categories = response.data;
+      });
+    },
+    deleteCategory: function(id) {
+      var _this = this;
+      // Show confirm
+
+      axios.delete("/api/categories/delete?id=" + id).then(function(response) {
+        if (response.status === 200) {
+          _this.message = "Selected category deleted";
+          _this.snackbar = true;
+          _this.getAllCategories();
+        }
       });
     }
     // showEditModal: function(id) {
