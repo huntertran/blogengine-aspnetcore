@@ -19,8 +19,11 @@ Vue.config.productionTip = false;
 
 const token = localStorage.getItem("token");
 
-// Vue.prototype.$http.defaults.headers.common["Access-Control-Allow-Origin"] =
-//   "*";
+// Set Axios base URL
+Vue.prototype.$http.defaults.baseURL = "http://localhost:5000";
+
+// Set CORS
+Vue.prototype.$http.defaults.crossDomain = true;
 
 if (token) {
   Vue.prototype.$http.defaults.headers.common["Authorization"] = token;
