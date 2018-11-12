@@ -13,12 +13,9 @@
         public int Id { get; set; }
 
         [DataType(DataType.DateTime)]
-        //Automatically insert value on add or updated
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedDateTime { get; set; }
 
         [DataType(DataType.DateTime)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime EditedDateTime { get; set; }
 
         [DataType(DataType.DateTime)]

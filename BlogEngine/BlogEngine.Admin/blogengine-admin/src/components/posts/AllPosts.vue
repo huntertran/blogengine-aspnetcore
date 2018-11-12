@@ -3,14 +3,14 @@
 
     <v-data-table
     :headers="headers"
-    :items="categories"
+    :items="posts"
     hide-actions
     class="elevation-1">
     <template slot="items" slot-scope="props">
       <td>{{ props.item.id }}</td>
       <td>{{ props.item.name }}</td>
       <td>
-        <v-btn small flat color="success" v-on:click="showEditCategoryDialog(props.item.id)">Edit</v-btn>
+        <v-btn small flat color="success" v-on:click="showEditPostDialog(props.item.id)">Edit</v-btn>
         <v-btn small flat color="error" v-on:click="showConfirmation(props.item.id)">Delete</v-btn>
       </td>
     </template>
@@ -21,7 +21,7 @@
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline">Delete category?</v-card-title>
+        <v-card-title class="headline">Delete post?</v-card-title>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -29,7 +29,7 @@
           <v-btn
             color="green darken-1"
             flat="flat"
-            @click="categoryIdToDelete = 0;showDeleteDialog = false"
+            @click="postIdToDelete = 0;showDeleteDialog = false"
           >
             Cancel
           </v-btn>
@@ -37,7 +37,7 @@
           <v-btn
             color="green darken-1"
             flat="flat"
-            @click="deleteCategory(categoryIdToDelete)"
+            @click="deletePost(postIdToDelete)"
           >
             Delete
           </v-btn>
@@ -47,13 +47,13 @@
 
   <v-dialog v-model="edit.show" max-width="290">
     <v-card>
-      <v-card-title class="headline">Edit Category</v-card-title>
+      <v-card-title class="headline">Edit Post</v-card-title>
 
       <v-card-text>
         <v-container grid-list-md>
           <v-layout wrap>
             <v-flex xs12>
-                <v-text-field v-model="edit.category.name" label="Category Name" required></v-text-field>
+                <v-text-field v-model="edit.post.name" label="Post Name" required></v-text-field>
               </v-flex>
           </v-layout>
         </v-container>
@@ -73,7 +73,7 @@
           <v-btn
             color="green darken-1"
             flat="flat"
-            @click="editCategory(edit.category)"
+            @click="editPost(edit.post)"
           >
             Save
           </v-btn>
@@ -105,10 +105,10 @@ export default {
       snackbar: false,
       message: "",
       showDeleteDialog: false,
-      categoryIdToDelete: 0,
+      postIdToDelete: 0,
       edit: {
         show: false,
-        category: {
+        post: {
           id: 0,
           name: ""
         }
@@ -118,58 +118,58 @@ export default {
         { text: "Name", align: "left", value: "name" },
         { text: "Action", align: "left", value: "action", sortable: false }
       ],
-      categories: []
+      posts: []
     };
   },
   methods: {
-    getSingleCategoryFromArray: function(id) {
+    getSinglePostFromArray: function(id) {
       var _this = this;
-      var filteredItems = _this.categories.filter(function(element) {
+      var filteredItems = _this.posts.filter(function(element) {
         return element.id === id;
       });
 
       return filteredItems[0].name;
     },
-    getAllCategories: function() {
+    getAllPosts: function() {
       var _this = this;
-      axios.get("/categories/all").then(function(response) {
-        _this.categories = response.data;
+      axios.get("/posts/all").then(function(response) {
+        _this.posts = response.data;
       });
     },
     showConfirmation: function(id) {
       var _this = this;
       _this.showDeleteDialog = true;
-      _this.categoryIdToDelete = id;
+      _this.postIdToDelete = id;
     },
-    deleteCategory: function(id) {
+    deletePost: function(id) {
       var _this = this;
-      axios.delete("/categories/delete?id=" + id).then(function(response) {
+      axios.delete("/posts/delete?id=" + id).then(function(response) {
         if (response.status === 200) {
-          _this.message = "Selected category deleted";
+          _this.message = "Selected post deleted";
           _this.snackbar = true;
           _this.showDeleteDialog = false;
-          _this.getAllCategories();
+          _this.getAllPosts();
         }
       });
     },
-    showEditCategoryDialog: function(id) {
+    showEditPostDialog: function(id) {
       var _this = this;
-      _this.edit.category.id = id;
-      _this.edit.category.name = _this.getSingleCategoryFromArray(id);
+      _this.edit.post.id = id;
+      _this.edit.post.name = _this.getSinglePostFromArray(id);
       _this.edit.show = true;
     },
-    editCategory: function(category) {
+    editPost: function(post) {
       var _this = this;
-      axios.put("/categories/put", category).then(function(response) {
+      axios.put("/posts/put", post).then(function(response) {
         if (response.status === 200) {
           _this.edit.show = false;
-          _this.getAllCategories();
+          _this.getAllPosts();
         }
       });
     }
   },
   mounted() {
-    this.getAllCategories();
+    this.getAllPosts();
   }
 };
 </script>

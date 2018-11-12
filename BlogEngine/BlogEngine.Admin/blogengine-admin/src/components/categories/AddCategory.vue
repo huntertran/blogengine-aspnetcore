@@ -23,9 +23,9 @@ export default {
         name: this.name
       };
       var _this = this;
-      axios.post("/api/categories/Post", category).then(function(response) {
+      axios.post("/categories/post", category).then(function(response) {
         if (response.status === 201) {
-          _this.$router.push("/Categories");
+          _this.$router.push("/categories");
         }
       });
     }

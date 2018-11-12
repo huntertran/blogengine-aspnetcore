@@ -13,6 +13,10 @@ import store from "./store.js";
 import AllCategories from "./components/categories/AllCategories";
 import AddCategory from "./components/categories/AddCategory";
 
+// Posts
+import AllPosts from "./components/posts/AllPosts";
+import AddPost from "./components/posts/AddPost";
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -37,19 +41,29 @@ const router = new VueRouter({
       component: Home
     },
     {
-      path: "/About",
+      path: "/about",
       name: "about",
       component: About
     },
     {
-      path: "/Categories",
+      path: "/categories",
       name: "categories",
       component: AllCategories
     },
     {
-      path: "/Categories/Add",
+      path: "/categories/add",
       name: "addcategory",
       component: AddCategory
+    },
+    {
+      path: "/posts",
+      name: "posts",
+      component: AllPosts
+    },
+    {
+      path: "/posts/add",
+      name: "addpost",
+      component: AddPost
     }
   ]
 });
