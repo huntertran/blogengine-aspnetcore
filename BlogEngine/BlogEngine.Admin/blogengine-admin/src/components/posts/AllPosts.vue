@@ -8,9 +8,10 @@
     class="elevation-1">
     <template slot="items" slot-scope="props">
       <td>{{ props.item.id }}</td>
-      <td>{{ props.item.name }}</td>
+      <td>{{ props.item.title }}</td>
+      <td>{{ props.item.summary }}</td>
       <td>
-        <v-btn small flat color="success" v-on:click="showEditPostDialog(props.item.id)">Edit</v-btn>
+        <v-btn small flat color="success" v-on:click="showEditPost(props.item.id)">Edit</v-btn>
         <v-btn small flat color="error" v-on:click="showConfirmation(props.item.id)">Delete</v-btn>
       </td>
     </template>
@@ -115,7 +116,8 @@ export default {
       },
       headers: [
         { text: "No.", align: "left", value: "id" },
-        { text: "Name", align: "left", value: "name" },
+        { text: "Title", align: "left", value: "title" },
+        { text: "Summary", align: "left", value: "summary" },
         { text: "Action", align: "left", value: "action", sortable: false }
       ],
       posts: []
@@ -152,11 +154,9 @@ export default {
         }
       });
     },
-    showEditPostDialog: function(id) {
+    showEditPost: function(id) {
       var _this = this;
-      _this.edit.post.id = id;
-      _this.edit.post.name = _this.getSinglePostFromArray(id);
-      _this.edit.show = true;
+      _this.$router.push("/posts/edit", id);
     },
     editPost: function(post) {
       var _this = this;

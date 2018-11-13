@@ -28,6 +28,24 @@
             return _repository.Get();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Find([FromQuery] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var post = await _repository.GetByIdAsync(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Post post)
         {
@@ -44,6 +62,39 @@
             await _repository.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Post post)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _repository.Update(post);
+            await _repository.SaveChangesAsync();
+            return Ok(post);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var post = await _repository.GetByIdAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            await _repository.DeleteAsync(id);
+            await _repository.SaveChangesAsync();
+
+            return Ok(post);
         }
     }
 }

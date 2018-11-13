@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import Router from "vue-router";
 
 import About from "./components/About";
 import Home from "./components/Home";
@@ -16,10 +16,11 @@ import AddCategory from "./components/categories/AddCategory";
 // Posts
 import AllPosts from "./components/posts/AllPosts";
 import AddPost from "./components/posts/AddPost";
+import EditPost from "./components/posts/EditPost";
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
-const router = new VueRouter({
+const router = new Router({
   mode: "history",
   routes: [
     {
@@ -64,6 +65,11 @@ const router = new VueRouter({
       path: "/posts/add",
       name: "addpost",
       component: AddPost
+    },
+    {
+      path: "/posts/edit",
+      name: "editpost",
+      component: EditPost
     }
   ]
 });

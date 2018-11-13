@@ -46,8 +46,8 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat v-for="button in topButtons" :key="button.text" :to="button.name">{{button.text}}</v-btn>
-        <v-btn flat v-if="isLoggedIn" :to="authenticateButtons[1].name">{{authenticateButtons[1].text}}</v-btn>
-        <v-btn flat v-else :to="authenticateButtons[0].name">{{authenticateButtons[0].text}}</v-btn>
+        <v-btn flat v-if="isLoggedIn" v-on:click="logout">{{authenticateButtons[1].text}}</v-btn>
+        <v-btn flat v-else v-on:click="login">{{authenticateButtons[0].text}}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -124,7 +124,10 @@ export default {
         this.$router.push(menu.url);
       }
     },
-    logout: function() {
+    login() {
+      this.$router.push("/login");
+    },
+    logout() {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/login");
       });
