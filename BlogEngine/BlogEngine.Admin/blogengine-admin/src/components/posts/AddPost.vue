@@ -34,7 +34,7 @@ export default {
     submit: function() {
       var _this = this;
       axios.post("/posts/post", _this.post).then(function(response) {
-        if (response.status === 201) {
+        if (response.status === 200 || response.status === 201) {
           _this.$router.push("/posts");
         }
       });
