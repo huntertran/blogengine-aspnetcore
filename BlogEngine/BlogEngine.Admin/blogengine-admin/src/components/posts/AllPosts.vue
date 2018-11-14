@@ -11,6 +11,9 @@
       <td>{{ props.item.title }}</td>
       <td>{{ props.item.summary }}</td>
       <td>
+        <v-checkbox disabled v-model="props.item.isPublished"></v-checkbox>
+      </td>
+      <td>
         <v-btn small flat color="success" v-on:click="showEditPost(props.item.id)">Edit</v-btn>
         <v-btn small flat color="error" v-on:click="showConfirmation(props.item.id)">Delete</v-btn>
       </td>
@@ -118,6 +121,7 @@ export default {
         { text: "No.", align: "left", value: "id" },
         { text: "Title", align: "left", value: "title" },
         { text: "Summary", align: "left", value: "summary" },
+        { text: "Is Published", align: "left", value: "isPublished" },
         { text: "Action", align: "left", value: "action", sortable: false }
       ],
       posts: []

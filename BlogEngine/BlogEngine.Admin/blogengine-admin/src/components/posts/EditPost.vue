@@ -23,7 +23,9 @@
             api-key="lb0mhaz5el6xk5icuw5ohvya2g0o4on9yj6lqm4bw6zsnl3e"
             v-model="post.content"
           ></editor>
-          <v-btn v-on:click="submit">Submit</v-btn>
+          <v-btn color="success" v-on:click="submit">Save</v-btn>
+          <v-btn v-if="post.isPublished" color="info" v-on:click="unpublish">Un Publish</v-btn>
+          <v-btn v-else color="info" v-on:click="publish">Publish</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -42,7 +44,8 @@ export default {
       post: {
         title: "",
         summary: "",
-        content: ""
+        content: "",
+        isPublished: false
       }
     };
   },
@@ -57,6 +60,16 @@ export default {
           _this.$router.push("/posts");
         }
       });
+    },
+    publish: function() {
+      var _this = this;
+      _this.post.isPublished = true;
+      _this.submit();
+    },
+    unpublish: function() {
+      var _this = this;
+      _this.post.isPublished = false;
+      _this.submit();
     },
     getPost: function(id) {
       var _this = this;
