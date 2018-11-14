@@ -72,6 +72,9 @@
                 return BadRequest(ModelState);
             }
 
+            post.EditedDateTime = DateTime.UtcNow;
+            post.PostedDateTime = DateTime.UtcNow;
+
             _repository.Update(post);
             await _repository.SaveChangesAsync();
             return Ok(post);

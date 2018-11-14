@@ -30,6 +30,9 @@
 
         public string Content { get; set; }
 
+        [Required]
+        public bool IsPublished { get; set; }
+
         public ICollection<PostCategory> PostCategories { get; set; }
     }
 }
