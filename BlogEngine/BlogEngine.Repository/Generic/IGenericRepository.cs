@@ -21,6 +21,8 @@
 
         void Delete(TEntity entityToDelete);
 
+        void DeleteRange(IEnumerable<TEntity> entities);
+
         void Update(TEntity entityToUpdate);
 
         bool Exists(object id);

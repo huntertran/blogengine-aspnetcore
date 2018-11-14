@@ -8,6 +8,8 @@
     using Repository.Generic;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Linq;
+    using BlogEngine.Client.Areas.API.ViewModels;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -16,10 +18,17 @@
     public class PostsController : ControllerBase
     {
         private readonly IGenericRepository<Post> _repository;
+        private readonly IGenericRepository<Category> _categoryRepo;
+        private readonly IGenericRepository<PostCategory> _postCategoryRepo;
 
-        public PostsController(IGenericRepository<Post> repository)
+        public PostsController(
+            IGenericRepository<Post> repository,
+            IGenericRepository<Category> categoryRepo,
+            IGenericRepository<PostCategory> postCategoryRepo)
         {
             _repository = repository;
+            _categoryRepo = categoryRepo;
+            _postCategoryRepo = postCategoryRepo;
         }
 
         [HttpGet]
@@ -44,6 +53,64 @@
             }
 
             return Ok(post);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategoryOfPost([FromQuery] int postId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categories = await _categoryRepo.GetAsync();
+            var postCategoryList = await _postCategoryRepo.GetAsync(x => x.PostId == postId);
+            var result = new List<CategoryViewModel>();
+
+            if (postCategoryList == null)
+            {
+                return NotFound();
+            }
+
+            foreach (Category category in categories)
+            {
+                var postCategory = new CategoryViewModel(category);
+
+                if (postCategoryList.Any(x => x.CategoryId == category.Id))
+                {
+                    postCategory.IsSelected = true;
+                }
+
+                result.Add(postCategory);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostCategoryOfPost(
+            [FromBody] List<CategoryViewModel> categories,
+            [FromQuery] int postId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categoryToInsert = categories.Where(x => x.IsSelected).ToList();
+
+            // Get old data
+            var postCategoryList = await _postCategoryRepo.GetAsync(x => x.PostId == postId);
+            
+            // Remove old data
+            // await _postCategoryRepo
+
+            foreach (var categoryVm in categoryToInsert)
+            {
+                
+            }
+
+            return Ok();
         }
 
         [HttpPost]

@@ -8,7 +8,7 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity:class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private readonly ApplicationDbContext _context;
 
@@ -123,6 +123,19 @@
             }
 
             _dbSet.Remove(entityToDelete);
+        }
+
+        public virtual void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entityToDelete in entities)
+            {
+                if (_context.Entry(entityToDelete).State == EntityState.Detached)
+                {
+                    _dbSet.Attach(entityToDelete);
+                }
+            }
+
+            _dbSet.RemoveRange(entities);
         }
 
         public virtual void Update(TEntity entityToUpdate)
