@@ -67,7 +67,8 @@ const router = new Router({
       component: AddPost
     },
     {
-      path: "/posts/edit",
+      path: "/posts/edit/:id",
+      props: true,
       name: "editpost",
       component: EditPost
     }

@@ -19,6 +19,10 @@
             label="Post Content"
             required
           ></v-text-field>
+          <editor
+            api-key="lb0mhaz5el6xk5icuw5ohvya2g0o4on9yj6lqm4bw6zsnl3e"
+            v-model="post.content"
+          ></editor>
           <v-btn v-on:click="submit">Submit</v-btn>
         </v-form>
       </v-flex>
@@ -27,7 +31,35 @@
 </template>
 
 <script>
+import Axios from "axios";
+// es modules
+import Editor from "@tinymce/tinymce-vue";
+
 export default {
-    
-}
+  props: ["id"],
+  data: function() {
+    return {
+      post: {
+        title: "",
+        summary: "",
+        content: ""
+      }
+    };
+  },
+  components: {
+    editor: Editor
+  },
+  methods: {
+    submit: function() {},
+    getPost: function(id) {
+      var _this = this;
+      Axios.get("/posts/find?id=" + id).then(function(response) {
+        _this.post = response.data;
+      });
+    }
+  },
+  mounted: function() {
+    this.getPost(this.id);
+  }
+};
 </script>

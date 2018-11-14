@@ -156,7 +156,7 @@ export default {
     },
     showEditPost: function(id) {
       var _this = this;
-      _this.$router.push("/posts/edit", id);
+      _this.$router.push("/posts/edit/" + id);
     },
     editPost: function(post) {
       var _this = this;
