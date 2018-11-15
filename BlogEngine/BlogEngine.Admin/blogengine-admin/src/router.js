@@ -22,6 +22,9 @@ import AllPosts from "./components/posts/AllPosts";
 import AddPost from "./components/posts/AddPost";
 import EditPost from "./components/posts/EditPost";
 
+// Read post
+import ReadPost from "./components/posts/ReadPost";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -79,6 +82,10 @@ const router = new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/post/:postId",
+      component: ReadPost
     },
     {
       path: "/about",

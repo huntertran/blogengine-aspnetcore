@@ -1,27 +1,36 @@
 <template>
-  <v-container>
-    <v-layout row wrap>
+  <v-container fluid grid-list-md>
+    <v-layout>
+      <v-flex xs12>
+        <h1>Add Post</h1>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>      
       <v-flex md8 xs12>
         <v-form>
-          <h2>Edit Post</h2>
           <v-text-field
+            box
+            outline
             v-model="post.title"
             label="Post Title"
             required
           ></v-text-field>
 
-          <v-text-field
+          <v-textarea
+            auto-grow
+            box
+            outline
             v-model="post.summary"
             label="Post Summary"
-            required
-          ></v-text-field>
+            required></v-textarea>
           <editor
             api-key="lb0mhaz5el6xk5icuw5ohvya2g0o4on9yj6lqm4bw6zsnl3e"
             v-model="post.content"
           ></editor>
         </v-form>
       </v-flex>
-      <v-flex md4 xs12>
+      <v-spacer></v-spacer>
+      <v-flex md2 xs12>
         <v-form>
           <h2>Category</h2>
           <v-checkbox v-for="item in postCategoryList" 
@@ -65,7 +74,7 @@ export default {
       var _this = this;
       Axios.post("/posts/post", _this.post).then(function(response) {
         if (response.status === 200 || response.status === 201) {
-          _this.$router.push("/posts");
+          _this.$router.push("/admin/posts");
         }
       });
     },
@@ -76,7 +85,7 @@ export default {
         _this.postCategoryList
       ).then(function(response) {
         if (response.status === 200 || response.status === 201) {
-          _this.$router.push("/posts");
+          _this.$router.push("/admin/posts");
         }
       });
     },

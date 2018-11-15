@@ -10,6 +10,7 @@
       <td>{{ props.item.id }}</td>
       <td>{{ props.item.title }}</td>
       <td>{{ props.item.summary }}</td>
+      <td>{{ props.item.editedDateTime }}</td>
       <td>
         <v-checkbox disabled v-model="props.item.isPublished"></v-checkbox>
       </td>
@@ -121,6 +122,11 @@ export default {
         { text: "No.", align: "left", value: "id" },
         { text: "Title", align: "left", value: "title" },
         { text: "Summary", align: "left", value: "summary" },
+        {
+          text: "Edited Time",
+          align: "left",
+          value: "editedDateTime"
+        },
         { text: "Is Published", align: "left", value: "isPublished" },
         { text: "Action", align: "left", value: "action", sortable: false }
       ],
