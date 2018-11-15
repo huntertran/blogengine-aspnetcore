@@ -4,7 +4,6 @@ import Router from "vue-router";
 import About from "./components/About";
 import Home from "./components/Home";
 
-
 import Secure from "./components/Secure";
 
 import store from "./store.js";

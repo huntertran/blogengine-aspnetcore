@@ -94,7 +94,7 @@
 <script>
 export default {
   data: () => ({
-    isDrawerOpen: false,
+    isDrawerOpen: true,
     drawerWidth: 250,
     menus: [
       {
@@ -125,7 +125,7 @@ export default {
       {
         icon: "info",
         text: "About",
-        name: "about"
+        name: "/about"
       }
     ],
     authenticateButtons: [
