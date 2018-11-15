@@ -8,8 +8,14 @@
 
         public CategoryViewModel(Category cat)
         {
+            if (cat == null)
+            {
+                return;
+            }
+
             Id = cat.Id;
             Name = cat.Name;
+
         }
     }
 }

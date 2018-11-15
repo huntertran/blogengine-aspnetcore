@@ -8,7 +8,7 @@
 
     public interface IGenericRepository<TEntity> : IDisposable
     {
-        IEnumerable<TEntity> Get(
+        IList<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
@@ -16,6 +16,8 @@
         TEntity GetById(object id);
 
         void Insert(TEntity entity);
+
+        void InsertRange(IList<TEntity> entities);
 
         void Delete(object id);
 
@@ -29,7 +31,7 @@
 
         void SaveChanges();
 
-        Task<IEnumerable<TEntity>> GetAsync(
+        Task<IList<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
@@ -37,6 +39,8 @@
         Task<TEntity> GetByIdAsync(object id);
 
         Task InsertAsync(TEntity entity);
+
+        Task InsertRangeAsync(IList<TEntity> entities);
 
         Task DeleteAsync(object id);
 

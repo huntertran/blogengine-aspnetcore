@@ -28,7 +28,6 @@
             :key="item.name"
             v-model="item.isSelected"
             :label="item.name"
-            :value="item.id"
           ></v-checkbox>
         </v-form>
       </v-flex>
@@ -71,12 +70,20 @@ export default {
         if (response.status === 200 || response.status === 201) {
           var post = response.data;
           _this.saveCategory(post.id);
-          _this.$router.push("/posts");
+          // _this.$router.push("/posts");
         }
       });
     },
-    saveCategory: function(postId){
-      
+    saveCategory: function(postId) {
+      var _this = this;
+      Axios.post(
+        "/posts/PostCategoryOfPost?postId=" + postId,
+        _this.postCategoryList
+      ).then(function(response) {
+        if (response.status === 200 || response.status === 201) {
+          _this.$router.push("/posts");
+        }
+      });
     },
     publish: function() {
       var _this = this;

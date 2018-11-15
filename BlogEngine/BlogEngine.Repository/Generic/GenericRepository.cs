@@ -21,7 +21,7 @@
         }
 
         // Expression<Func<TEntity, bool>> filter: Allow you pass in a LINQ filter function
-        public virtual IEnumerable<TEntity> Get(
+        public virtual IList<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -51,7 +51,7 @@
             return query.ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAsync(
+        public virtual async Task<IList<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -97,9 +97,19 @@
             _dbSet.Add(entity);
         }
 
+        public virtual void InsertRange(IList<TEntity> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
         public virtual async Task InsertAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
+        }
+
+        public virtual async Task InsertRangeAsync(IList<TEntity> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
         }
 
         public virtual void Delete(object id)
@@ -127,7 +137,8 @@
 
         public virtual void DeleteRange(IEnumerable<TEntity> entities)
         {
-            foreach (var entityToDelete in entities)
+            var listEntity = entities.ToList();
+            foreach (var entityToDelete in listEntity)
             {
                 if (_context.Entry(entityToDelete).State == EntityState.Detached)
                 {
@@ -135,7 +146,7 @@
                 }
             }
 
-            _dbSet.RemoveRange(entities);
+            _dbSet.RemoveRange(listEntity);
         }
 
         public virtual void Update(TEntity entityToUpdate)

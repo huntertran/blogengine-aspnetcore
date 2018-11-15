@@ -1,15 +1,15 @@
 ﻿namespace BlogEngine.Client.Areas.API.Controllers
 {
-    using System;
     using BlogEngine.Models;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Repository.Generic;
+    using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using System.Linq;
-    using BlogEngine.Client.Areas.API.ViewModels;
+    using System.Threading.Tasks;
+    using ViewModels;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -67,12 +67,12 @@
             var postCategoryList = await _postCategoryRepo.GetAsync(x => x.PostId == postId);
             var result = new List<CategoryViewModel>();
 
-            if (postCategoryList == null)
+            if (!postCategoryList.Any())
             {
                 return NotFound();
             }
 
-            foreach (Category category in categories)
+            foreach (var category in categories)
             {
                 var postCategory = new CategoryViewModel(category);
 
@@ -101,14 +101,27 @@
 
             // Get old data
             var postCategoryList = await _postCategoryRepo.GetAsync(x => x.PostId == postId);
-            
+
             // Remove old data
-            // await _postCategoryRepo
+            _postCategoryRepo.DeleteRange(postCategoryList);
+
+            // Create new list to insert
+            var newListToInsert = new List<PostCategory>();
 
             foreach (var categoryVm in categoryToInsert)
             {
-                
+                var postCategory = new PostCategory
+                {
+                    CategoryId = categoryVm.Id,
+                    PostId = postId
+                };
+
+                newListToInsert.Add(postCategory);
             }
+
+            await _postCategoryRepo.InsertRangeAsync(newListToInsert);
+
+            await _postCategoryRepo.SaveChangesAsync();
 
             return Ok();
         }
