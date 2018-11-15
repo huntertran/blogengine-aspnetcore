@@ -24,12 +24,12 @@ const router = new Router({
   mode: "history",
   routes: [
     {
-      path: "/login",
+      path: "/admin/login",
       name: "login",
       component: Login
     },
     {
-      path: "/secure",
+      path: "/admin/secure",
       name: "secure",
       component: Secure,
       meta: {
@@ -47,27 +47,27 @@ const router = new Router({
       component: About
     },
     {
-      path: "/categories",
+      path: "/admin/categories",
       name: "categories",
       component: AllCategories
     },
     {
-      path: "/categories/add",
+      path: "/admin/categories/add",
       name: "addcategory",
       component: AddCategory
     },
     {
-      path: "/posts",
+      path: "/admin/posts",
       name: "posts",
       component: AllPosts
     },
     {
-      path: "/posts/add",
+      path: "/admin/posts/add",
       name: "addpost",
       component: AddPost
     },
     {
-      path: "/posts/edit/:id",
+      path: "/admin/posts/edit/:id",
       props: true,
       name: "editpost",
       component: EditPost
@@ -82,7 +82,7 @@ router.beforeEach((to, from, next) => {
       next();
       return;
     }
-    next("/login");
+    next("/admin/login");
   } else {
     next();
   }
