@@ -25,7 +25,7 @@ export default {
       var _this = this;
       axios.post("/categories/post", category).then(function(response) {
         if (response.status === 201) {
-          _this.$router.push("/categories");
+          _this.$router.push("/admin/categories");
         }
       });
     }

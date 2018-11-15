@@ -18,7 +18,7 @@
           <editor
             api-key="lb0mhaz5el6xk5icuw5ohvya2g0o4on9yj6lqm4bw6zsnl3e"
             v-model="post.content"
-          ></editor>          
+          ></editor>
         </v-form>
       </v-flex>
       <v-flex md4 xs12>
@@ -44,7 +44,7 @@
 
 <script>
 import Axios from "axios";
-// es modules
+
 import Editor from "@tinymce/tinymce-vue";
 
 export default {

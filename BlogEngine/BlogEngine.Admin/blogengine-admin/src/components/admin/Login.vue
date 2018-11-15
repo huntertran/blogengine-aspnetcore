@@ -34,8 +34,8 @@ export default {
       let Password = this.Password;
       this.$store
         .dispatch("login", { Username, Password })
-        .then(() => this.$router.push("/"))
-        .catch(err => console.log(err));
+        .then(() => this.$router.push("/admin"));
+      // .catch(err => console.log(err));
     }
   }
 };

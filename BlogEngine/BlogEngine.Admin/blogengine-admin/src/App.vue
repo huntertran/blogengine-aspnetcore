@@ -1,5 +1,5 @@
 <template>
-  <v-app dark v-if="isLoggedIn">
+  <v-app dark v-if="isShowAdminLayout">
     <v-navigation-drawer app :width="drawerWidth" v-model="isDrawerOpen" clipped>
 
       <v-list dense>
@@ -100,7 +100,7 @@ export default {
       {
         icon: "dashboard",
         text: "Home",
-        url: "/"
+        url: "/admin"
       },
       {
         icon: "edit",
@@ -144,6 +144,12 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
+    },
+    isShowAdminLayout: function() {
+      if (this.isLoggedIn && this.$route.path.startsWith("/admin")) {
+        // console.log(this.$route);
+        return true;
+      }
     }
   },
   methods: {

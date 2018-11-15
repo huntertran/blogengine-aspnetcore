@@ -63,14 +63,9 @@
                 return BadRequest(ModelState);
             }
 
+            var result = new List<CategoryViewModel>();
             var categories = await _categoryRepo.GetAsync();
             var postCategoryList = await _postCategoryRepo.GetAsync(x => x.PostId == postId);
-            var result = new List<CategoryViewModel>();
-
-            if (!postCategoryList.Any())
-            {
-                return NotFound();
-            }
 
             foreach (var category in categories)
             {
