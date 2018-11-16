@@ -51,6 +51,38 @@
             return query.ToList();
         }
 
+        public virtual IList<TEntity> GetByPage(
+            int page = 1,
+            int itemPerPage = 5,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            // query is IQueryable, only executed when call ToList
+            if (filter != null)
+            {
+                query = query.Where(filter).Skip((page - 1) * itemPerPage).Take(itemPerPage);
+            }
+
+            // next, it include properties by user
+            var properties = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var includeProperty in properties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            // finally, it translated to SQL and call DB
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+
+            return query.ToList();
+        }
+
         public virtual async Task<IList<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
@@ -62,6 +94,38 @@
             if (filter != null)
             {
                 query = query.Where(filter);
+            }
+
+            // next, it include properties by user
+            var properties = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var includeProperty in properties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            // finally, it translated to SQL and call DB
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public virtual async Task<IList<TEntity>> GetByPageAsync(
+            int page = 1,
+            int itemPerPage = 5,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            // query is IQueryable, only executed when call ToList
+            if (filter != null)
+            {
+                query = query.Where(filter).Skip((page - 1) * itemPerPage).Take(itemPerPage);
             }
 
             // next, it include properties by user

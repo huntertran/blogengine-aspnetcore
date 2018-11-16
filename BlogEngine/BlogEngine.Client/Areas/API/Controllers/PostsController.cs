@@ -32,12 +32,36 @@
         }
 
         [HttpGet]
-        public IEnumerable<Post> All()
+        [AllowAnonymous]
+        public IEnumerable<Post> All(int page = 1, int postPerPage = 5)
         {
-            return _repository.Get();
+            return _repository.GetByPage(
+                page,
+                postPerPage,
+                orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        public IEnumerable<Post> GetPostsByCategory(
+            int page = 1,
+            int postPerPage = 5,
+            int categoryId = 0)
+        {
+            if (categoryId == 0)
+            {
+                return All(page, postPerPage);
+            }
+
+            return _repository.GetByPage(
+                page,
+                postPerPage,
+                filter: post => post.IsPublished == true,
+                orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Find([FromQuery] int id)
         {
             if (!ModelState.IsValid)

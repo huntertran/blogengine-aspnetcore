@@ -24,6 +24,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<CategoryViewModel> All()
         {
             var categories = _repository.Get();

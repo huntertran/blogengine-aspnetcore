@@ -13,6 +13,13 @@
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
 
+        IList<TEntity> GetByPage(
+            int page = 1,
+            int itemPerPage = 5,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "");
+
         TEntity GetById(object id);
 
         void Insert(TEntity entity);
@@ -32,6 +39,13 @@
         void SaveChanges();
 
         Task<IList<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "");
+
+        Task<IList<TEntity>> GetByPageAsync(
+            int page = 1,
+            int itemPerPage = 5,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
