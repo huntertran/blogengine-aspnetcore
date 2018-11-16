@@ -11,7 +11,6 @@
     using System.Threading.Tasks;
 
     [Route("api/[controller]/[action]")]
-    [Area(nameof(Client.Areas.API))]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "RequireAdmin")]
     public class CategoriesController : ControllerBase
