@@ -84,9 +84,21 @@ export default {
     this.query.page = this.$route.query.page;
     this.query.postPerPage = this.$route.query.postPerPage;
     this.query.categoryId = this.$route.query.categoryId;
-    if (this.query.categoryId !== 0) {
+    if (this.query.categoryId === 0 || isNaN(this.query.categoryId)) {
+      this.category.isShow = false;
+      this.query.categoryId = 0;
+    } else {
       this.getSingleCategory(this.query.categoryId);
     }
+
+    if (isNaN(this.query.postPerPage)) {
+      this.query.postPerPage = 5;
+    }
+
+    if (isNaN(this.query.page)) {
+      this.query.page = 1;
+    }
+
     this.getPosts(
       this.query.page,
       this.query.postPerPage,

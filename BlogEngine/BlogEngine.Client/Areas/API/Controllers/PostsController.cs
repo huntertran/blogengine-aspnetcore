@@ -8,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using ViewModels;
 
@@ -33,39 +34,30 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<MinifiedPostViewModel> All(int page = 1, int postPerPage = 5)
-        {
-            var originalPosts = _repository.GetByPage(
-                page,
-                postPerPage,
-                filter: post => post.IsPublished,
-                orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
-
-            var result = originalPosts.Select(x => new MinifiedPostViewModel(x));
-
-            return result;
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IEnumerable<MinifiedPostViewModel> GetPostsByCategory(
+        public IEnumerable<MinifiedPostViewModel> All(
             int page = 1,
             int postPerPage = 5,
             int categoryId = 0)
         {
+            Expression<Func<Post, bool>> filter = null;
+
             if (categoryId == 0)
             {
-                return All(page, postPerPage);
+                filter = post => post.IsPublished;
+            }
+            else
+            {
+                filter = post => post.IsPublished
+                             && post.PostCategories.Any(x => x.CategoryId == categoryId);
             }
 
-            var origialPosts = _repository.GetByPage(
+            var originalPosts = _repository.GetByPage(
                 page,
                 postPerPage,
-                filter: post => post.IsPublished
-                             && post.PostCategories.Any(x => x.CategoryId == categoryId),
+                filter,
                 orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
 
-            var result = origialPosts.Select(x => new MinifiedPostViewModel(x));
+            var result = originalPosts.Select(x => new MinifiedPostViewModel(x));
 
             return result;
         }

@@ -83,7 +83,8 @@
     </v-footer> -->
   </v-app>
   <v-app v-else>
-    <v-toolbar>
+    <v-toolbar dense>
+      <v-toolbar-title v-on:click="goHome">Hunter's Blog</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat :key="category.id"
@@ -170,6 +171,9 @@ export default {
       if (menu.url.length) {
         this.$router.push(menu.url);
       }
+    },
+    goHome() {
+      this.$router.push("/");
     },
     categoryClicked(categoryId) {
       this.$router.push("/?page=1&postPerPage=5&categoryId=" + categoryId);
