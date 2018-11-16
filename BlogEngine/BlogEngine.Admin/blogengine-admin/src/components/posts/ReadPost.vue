@@ -1,11 +1,10 @@
 <template>
     <v-container>
+      <v-layout>
+        <h1>{{post.title}}</h1>
+      </v-layout>
         <v-layout>
-            <v-flex xs12>
-                <v-content>
-                    {{post.content}}
-                </v-content>
-            </v-flex>
+            <v-flex xs12 v-html="post.content"></v-flex>
         </v-layout>
     </v-container>
 </template>
@@ -32,8 +31,11 @@ export default {
     }
   },
   mounted() {
-    this.getPost(16);
+    this.getPost(this.$route.params.postId);
+    // registerBrush(CSharpBrush);
+    // SyntaxHighlighter.highlight({
+    //   gutter: false
+    // });
   }
 };
 </script>
-

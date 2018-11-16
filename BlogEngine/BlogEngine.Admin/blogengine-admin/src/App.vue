@@ -83,19 +83,24 @@
     </v-footer> -->
   </v-app>
   <v-app v-else>
-    <v-content>
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
-    </v-content>
+    <v-toolbar>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat :key="category.id" v-for="category in categories">{{category.name}}</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <router-view></router-view>
   </v-app>
 </template>
   
 <script>
+import Axios from "axios";
+
 export default {
   data: () => ({
     isDrawerOpen: true,
     drawerWidth: 250,
+    categories: [],
     menus: [
       {
         icon: "dashboard",
@@ -153,6 +158,12 @@ export default {
     }
   },
   methods: {
+    getCategories: function() {
+      var _this = this;
+      Axios.get("/categories/all").then(function(response) {
+        _this.categories = response.data;
+      });
+    },
     menuClicked(menu) {
       if (menu.url.length) {
         this.$router.push(menu.url);
@@ -166,6 +177,9 @@ export default {
         this.$router.push("/");
       });
     }
+  },
+  mounted() {
+    this.getCategories();
   },
   created: function() {
     this.$http.interceptors.response.use(undefined, function(err) {
