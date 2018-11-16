@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/BlogEngine.Client/BlogEngine.Client.csproj"
+                "${workspaceFolder}/BlogEngine.Api/BlogEngine.Api.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -64,6 +64,8 @@
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
+
             app.UseCors(builder => builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());

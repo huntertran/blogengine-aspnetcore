@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/BlogEngine.Client/bin/Debug/netcoreapp2.1/BlogEngine.Client.dll",
+            "program": "${workspaceFolder}/BlogEngine.Api/bin/Debug/netcoreapp2.1/BlogEngine.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/BlogEngine.Client",
+            "cwd": "${workspaceFolder}/BlogEngine.Api",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
