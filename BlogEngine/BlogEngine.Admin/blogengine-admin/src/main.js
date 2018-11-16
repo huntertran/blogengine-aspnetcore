@@ -20,8 +20,9 @@ Vue.config.productionTip = false;
 const token = localStorage.getItem("token");
 
 // Set Axios base URL
-Vue.prototype.$http.defaults.baseURL = "http://localhost:5000/api";
+// Vue.prototype.$http.defaults.baseURL = "http://localhost:5000/api";
 // Vue.prototype.$http.defaults.baseURL = "https://localhost:44311/api";
+Vue.prototype.$http.defaults.baseURL = "https://localhost:44394/api";
 
 // Set CORS
 Vue.prototype.$http.defaults.crossDomain = true;
