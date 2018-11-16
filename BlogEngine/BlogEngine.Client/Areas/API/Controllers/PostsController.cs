@@ -33,17 +33,22 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Post> All(int page = 1, int postPerPage = 5)
+        public IEnumerable<MinifiedPostViewModel> All(int page = 1, int postPerPage = 5)
         {
-            return _repository.GetByPage(
+            var originalPosts = _repository.GetByPage(
                 page,
                 postPerPage,
+                filter: post => post.IsPublished,
                 orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
+
+            var result = originalPosts.Select(x => new MinifiedPostViewModel(x));
+
+            return result;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Post> GetPostsByCategory(
+        public IEnumerable<MinifiedPostViewModel> GetPostsByCategory(
             int page = 1,
             int postPerPage = 5,
             int categoryId = 0)
@@ -53,11 +58,16 @@
                 return All(page, postPerPage);
             }
 
-            return _repository.GetByPage(
+            var origialPosts = _repository.GetByPage(
                 page,
                 postPerPage,
-                filter: post => post.IsPublished == true,
+                filter: post => post.IsPublished
+                             && post.PostCategories.Any(x => x.CategoryId == categoryId),
                 orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
+
+            var result = origialPosts.Select(x => new MinifiedPostViewModel(x));
+
+            return result;
         }
 
         [HttpGet]

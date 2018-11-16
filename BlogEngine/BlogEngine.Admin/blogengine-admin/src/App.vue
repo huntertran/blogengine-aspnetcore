@@ -86,10 +86,12 @@
     <v-toolbar>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat :key="category.id" v-for="category in categories">{{category.name}}</v-btn>
+        <v-btn flat :key="category.id"
+                    v-for="category in categories"
+                    v-on:click="categoryClicked(category.id)">{{category.name}}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </v-app>
 </template>
   
@@ -168,6 +170,9 @@ export default {
       if (menu.url.length) {
         this.$router.push(menu.url);
       }
+    },
+    categoryClicked(categoryId) {
+      this.$router.push("/?page=1&postPerPage=5&categoryId=" + categoryId);
     },
     login() {
       this.$router.push("/admin/login");

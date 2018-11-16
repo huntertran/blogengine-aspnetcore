@@ -1,8 +1,8 @@
 <template>
     <v-container fluid grid-list-md>
-      <v-layout v-if="category.isShow" row wrap>
-        <h1>{{category.name}}</h1>
-      </v-layout>
+        <v-layout row wrap>
+            <h1>Machine Learning</h1>
+        </v-layout>
       <v-layout row wrap>
         <v-flex xs12 sm4 v-for="post in posts" :key="post.id">
           <v-card hover>
@@ -34,30 +34,28 @@ import Axios from "axios";
 export default {
   data: function() {
     return {
-      posts: [],
-      query: {
-        page: 1,
-        postPerPage: 1,
-        categoryId: 1
-      },
-      category: {
-        isShow: false,
-        name: ""
-      }
+      posts: []
     };
+  },
+  props: {
+    page: {
+      type: Number,
+      default: 1
+    },
+    postPerPage: {
+      type: Number,
+      default: 5
+    },
+    categoryId: {
+      type: Number,
+      default: 0
+    }
   },
   methods: {
     getCategories: function() {
       var _this = this;
       Axios.get("/categories/all").then(function(response) {
         _this.categories = response.data;
-      });
-    },
-    getSingleCategory: function(categoryId) {
-      var _this = this;
-      Axios.get("/categories/find?id=" + categoryId).then(function(response) {
-        _this.category.isShow = true;
-        _this.category.name = response.data.name;
       });
     },
     getPosts: function(page, postPerPage, categoryId) {
@@ -81,17 +79,7 @@ export default {
   },
   mounted() {
     this.getCategories();
-    this.query.page = this.$route.query.page;
-    this.query.postPerPage = this.$route.query.postPerPage;
-    this.query.categoryId = this.$route.query.categoryId;
-    if (this.query.categoryId !== 0) {
-      this.getSingleCategory(this.query.categoryId);
-    }
-    this.getPosts(
-      this.query.page,
-      this.query.postPerPage,
-      this.query.categoryId
-    );
+    this.getPosts(this.page, this.postPerPage, this.categoryId);
   }
 };
 </script>
