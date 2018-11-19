@@ -46,6 +46,11 @@
 
             services.AddCors();
 
+            services.AddSpaStaticFiles(config =>
+            {
+                config.RootPath = "ClientApp/src/dist";
+            });
+
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
             services.AddScoped<IGenericRepository<Post>, GenericRepository<Post>>();
@@ -65,6 +70,7 @@
             }
 
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
             app.UseCors(builder => builder.AllowAnyOrigin()
                 .AllowAnyHeader()
@@ -72,6 +78,11 @@
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+            });
         }
     }
 }
