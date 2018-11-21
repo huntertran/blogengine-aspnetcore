@@ -1,6 +1,6 @@
 {
-  "name": "blogengine-admin",
-  "short_name": "blogengine-admin",
+  "name": "clientapp",
+  "short_name": "clientapp",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
