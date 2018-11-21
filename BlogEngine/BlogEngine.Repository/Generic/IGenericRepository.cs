@@ -8,6 +8,8 @@
 
     public interface IGenericRepository<TEntity> : IDisposable
     {
+        int Count(Expression<Func<TEntity, bool>> filter = null);
+
         IList<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

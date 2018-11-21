@@ -10,12 +10,32 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data: function() {
     return {
-      totalPost: 5,
-      totalCategory: 5
+      totalPost: 0,
+      totalCategory: 0
     };
+  },
+  methods: {
+    getTotalPost: function() {
+      var _this = this;
+      axios.get('/posts/GetTotalPostNumber').then(function(response) {
+        _this.totalPost = response.data;
+      });
+    },
+    getTotalCategory: function() {
+      var _this = this;
+      axios.get('/categories/GetTotalCategoryNumber').then(function(response) {
+        _this.totalCategory = response.data;
+      });
+    }
+  },
+  mounted: function() {
+    this.getTotalPost();
+    this.getTotalCategory();
   }
 };
 </script>

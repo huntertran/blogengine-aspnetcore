@@ -24,6 +24,14 @@
 
         [HttpGet]
         [AllowAnonymous]
+        public IActionResult GetTotalCategoryNumber()
+        {
+            var result = _repository.Count();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<CategoryViewModel> All()
         {
             var categories = _repository.Get();

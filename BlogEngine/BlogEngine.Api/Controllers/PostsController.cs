@@ -34,6 +34,14 @@
 
         [HttpGet]
         [AllowAnonymous]
+        public IActionResult GetTotalPostNumber()
+        {
+            var result = _repository.Count();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<MinifiedPostViewModel> All(
             int page = 1,
             int postPerPage = 5,

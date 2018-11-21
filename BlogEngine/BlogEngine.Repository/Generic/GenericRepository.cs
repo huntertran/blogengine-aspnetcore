@@ -20,6 +20,19 @@
             _dbSet = context.Set<TEntity>();
         }
 
+        public virtual int Count(Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            // query is IQueryable, only executed when call ToList
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return query.Count();
+        }
+
         // Expression<Func<TEntity, bool>> filter: Allow you pass in a LINQ filter function
         public virtual IList<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
