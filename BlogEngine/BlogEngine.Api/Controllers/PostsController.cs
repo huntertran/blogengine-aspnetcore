@@ -6,11 +6,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Repository.Generic;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Threading.Tasks;
+    using Services.Post;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -18,26 +17,25 @@
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "RequireWriter")]
     public class PostsController : ControllerBase
     {
-        private readonly IGenericRepository<Post> _repository;
         private readonly IGenericRepository<Category> _categoryRepo;
         private readonly IGenericRepository<PostCategory> _postCategoryRepo;
+        private readonly IPostService _postService;
 
         public PostsController(
-            IGenericRepository<Post> repository,
             IGenericRepository<Category> categoryRepo,
-            IGenericRepository<PostCategory> postCategoryRepo)
+            IGenericRepository<PostCategory> postCategoryRepo,
+            IPostService postService)
         {
-            _repository = repository;
             _categoryRepo = categoryRepo;
             _postCategoryRepo = postCategoryRepo;
+            _postService = postService;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public IActionResult GetTotalPostNumber()
         {
-            var result = _repository.Count();
-            return Ok(result);
+            return Ok(_postService.Count());
         }
 
         [HttpGet]
@@ -47,27 +45,9 @@
             int postPerPage = 5,
             int categoryId = 0)
         {
-            Expression<Func<Post, bool>> filter = null;
-
-            if (categoryId == 0)
-            {
-                filter = post => post.IsPublished;
-            }
-            else
-            {
-                filter = post => post.IsPublished
-                             && post.PostCategories.Any(x => x.CategoryId == categoryId);
-            }
-
-            var originalPosts = _repository.GetByPage(
-                page,
-                postPerPage,
-                filter,
-                orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
-
-            var result = originalPosts.Select(x => new MinifiedPostViewModel(x));
-
-            return result;
+            return _postService
+                    .All(page, postPerPage, categoryId)
+                    .Select(x => new MinifiedPostViewModel(x));
         }
 
         [HttpGet]
@@ -77,39 +57,21 @@
             int postPerPage = 5,
             int categoryId = 0)
         {
-            Expression<Func<Post, bool>> filter = null;
-
-            if (categoryId == 0)
-            {
-                filter = post => post.IsPublished == false;
-            }
-            else
-            {
-                filter = post => post.IsPublished == false
-                                 && post.PostCategories.Any(x => x.CategoryId == categoryId);
-            }
-
-            var originalPosts = _repository.GetByPage(
-                page,
-                postPerPage,
-                filter,
-                orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
-
-            var result = originalPosts.Select(x => new MinifiedPostViewModel(x));
-
-            return result;
+            return _postService
+                .GetUnpublishedPosts(page, postPerPage, categoryId)
+                .Select(x => new MinifiedPostViewModel(x));
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Find([FromQuery] int id)
+        public IActionResult Find([FromQuery] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var post = await _repository.GetByIdAsync(id);
+            var post = _postService.GetById(id);
 
             if (post == null)
             {
@@ -193,12 +155,7 @@
                 return BadRequest(ModelState);
             }
 
-            post.CreatedDateTime = DateTime.UtcNow;
-            post.EditedDateTime = DateTime.UtcNow;
-            post.PostedDateTime = DateTime.UtcNow;
-
-            _repository.Insert(post);
-            await _repository.SaveChangesAsync();
+            _postService.Insert(post);
 
             return Ok();
         }
@@ -211,30 +168,25 @@
                 return BadRequest(ModelState);
             }
 
-            post.EditedDateTime = DateTime.UtcNow;
-            post.PostedDateTime = DateTime.UtcNow;
-
-            _repository.Update(post);
-            await _repository.SaveChangesAsync();
+            _postService.Update(post);
             return Ok(post);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromQuery] int id)
+        public IActionResult Delete([FromQuery] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var post = await _repository.GetByIdAsync(id);
+            var post = _postService.GetById(id);
             if (post == null)
             {
                 return NotFound();
             }
 
-            await _repository.DeleteAsync(id);
-            await _repository.SaveChangesAsync();
+            _postService.Delete(id);
 
             return Ok(post);
         }

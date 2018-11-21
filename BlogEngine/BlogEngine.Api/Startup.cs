@@ -13,6 +13,7 @@
     using Repository.Data;
     using Repository.Generic;
     using Services.Identity;
+    using Services.Post;
 
     public class Startup
     {
@@ -55,6 +56,7 @@
             services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
             services.AddScoped<IGenericRepository<Post>, GenericRepository<Post>>();
             services.AddScoped<IGenericRepository<PostCategory>, GenericRepository<PostCategory>>();
+            services.AddScoped<IPostService, PostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
