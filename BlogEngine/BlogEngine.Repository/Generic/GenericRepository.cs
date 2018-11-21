@@ -76,8 +76,17 @@
             // query is IQueryable, only executed when call ToList
             if (filter != null)
             {
-                query = query.Where(filter).Skip((page - 1) * itemPerPage).Take(itemPerPage);
+                query = query.Where(filter);
             }
+
+            // order
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            // paging
+            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
 
             // next, it include properties by user
             var properties = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -88,11 +97,6 @@
             }
 
             // finally, it translated to SQL and call DB
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-
             return query.ToList();
         }
 
@@ -138,8 +142,17 @@
             // query is IQueryable, only executed when call ToList
             if (filter != null)
             {
-                query = query.Where(filter).Skip((page - 1) * itemPerPage).Take(itemPerPage);
+                query = query.Where(filter);
             }
+
+            // order
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            // paging
+            query = query.Skip((page - 1) * itemPerPage).Take(itemPerPage);
 
             // next, it include properties by user
             var properties = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -147,12 +160,6 @@
             foreach (var includeProperty in properties)
             {
                 query = query.Include(includeProperty);
-            }
-
-            // finally, it translated to SQL and call DB
-            if (orderBy != null)
-            {
-                return await orderBy(query).ToListAsync();
             }
 
             return await query.ToListAsync();

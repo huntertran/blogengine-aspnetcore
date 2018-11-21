@@ -72,6 +72,36 @@
 
         [HttpGet]
         [AllowAnonymous]
+        public IEnumerable<MinifiedPostViewModel> GetUnpublishedPosts(
+            int page = 1,
+            int postPerPage = 5,
+            int categoryId = 0)
+        {
+            Expression<Func<Post, bool>> filter = null;
+
+            if (categoryId == 0)
+            {
+                filter = post => post.IsPublished == false;
+            }
+            else
+            {
+                filter = post => post.IsPublished == false
+                                 && post.PostCategories.Any(x => x.CategoryId == categoryId);
+            }
+
+            var originalPosts = _repository.GetByPage(
+                page,
+                postPerPage,
+                filter,
+                orderBy: posts => posts.OrderByDescending(x => x.PostedDateTime));
+
+            var result = originalPosts.Select(x => new MinifiedPostViewModel(x));
+
+            return result;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Find([FromQuery] int id)
         {
             if (!ModelState.IsValid)
