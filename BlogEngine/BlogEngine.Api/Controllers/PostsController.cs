@@ -148,7 +148,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Post post)
+        public IActionResult Post([FromBody] Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -161,7 +161,7 @@
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] Post post)
+        public IActionResult Put([FromBody] Post post)
         {
             if (!ModelState.IsValid)
             {
