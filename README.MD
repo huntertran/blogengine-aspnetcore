@@ -15,7 +15,7 @@ Admin site
 
 Login credentials
 * Username: admin@blogengine.com
-* Pasword: 8PNddq5zFB6_zjQ
+* Password: 8PNddq5zFB6_zjQ
 
 # 3. Files and folders structure
 
@@ -24,7 +24,7 @@ The solution is divided into folders
 - course1: for week 1 exercise
 - BlogEngine: for other weeks exercise
 - Published: for final published folder of BlogEngine
-- material: a sub-module to get the latest instruction form trainer
+- material: a sub-module to get the latest instruction from trainer
 
 # 4. BlogEngine
 
@@ -48,9 +48,9 @@ At the beginning of the development phase, I would like to support both authoriz
 
 I actually achieved this goal, you can check the `IdentityBuilderExtension` class in `BlogEngine.Core`, method `AddIdentityWithCookieAndJwt`.
 
-> To use this double authorization schemes, on each controller, you have to set what authorization scheme it support.
+> To use this double authorization schemes, on each controller, you have to set what authorization scheme it support. Multiple schemes on a single controller is supported.
 
-Later on, as application grow, maintaining both scheme seem to take so much effort, so I decided to use token-based only, resulted in the client site and admin-site has to use an SPA framework (Vue to be exact)
+Later on, as application grow, maintaining both schemes seem to take so much effort, so I decided to use token-based only, resulted in the client site and admin-site has to use an SPA framework (Vue to be exact)
 
 ## 4.2. Front-end
 
@@ -68,7 +68,7 @@ The front-end client application was located in `BlogEngine.Api\blogengin-client
 
 # 5. Unit test
 
-BlogEngine have unit test, yet simple but demonstrate how a unit test would be wrote
+BlogEngine have unit test, yet simple but demonstrate how a unit test would be written
 
 The unit tests is located in `BlogEngine.Services.Tests`, using `xUnit`
 
