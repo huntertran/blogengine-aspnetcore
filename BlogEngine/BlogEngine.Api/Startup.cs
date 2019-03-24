@@ -49,7 +49,7 @@
 
             services.AddSpaStaticFiles(config =>
             {
-                config.RootPath = "blogengin-client/dist";
+                config.RootPath = "blogengine-client/dist";
             });
 
             services.AddScoped<IIdentityService, IdentityService>();
@@ -83,7 +83,7 @@
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "blogengin-client";
+                spa.Options.SourcePath = "blogengine-client";
             });
         }
     }
