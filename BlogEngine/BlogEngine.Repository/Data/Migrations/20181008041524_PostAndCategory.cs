@@ -32,7 +32,8 @@ namespace BlogEngine.Repository.Data.Migrations
                     PostedDateTime = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Summary = table.Column<string>(maxLength: 500, nullable: true),
-                    Content = table.Column<string>(nullable: true)
+                    Content = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable:false, defaultValue:false)
                 },
                 constraints: table =>
                 {

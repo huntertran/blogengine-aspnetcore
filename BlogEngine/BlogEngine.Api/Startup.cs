@@ -1,4 +1,6 @@
-﻿namespace BlogEngine.Api
+﻿using System;
+
+namespace BlogEngine.Api
 {
     using Core.Authorization;
     using Core.Policy;
@@ -27,9 +29,11 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("AzureConnection")));
+            services.AddDbContext<ApplicationDbContext>(dbContextOptionBuilder =>
+            {
+                dbContextOptionBuilder.UseSqlite(Configuration.GetConnectionString("SqliteConnection"));
+                //dbContextOptionBuilder.UseSqlServer(Configuration.GetConnectionString("AzureConnection"));
+            });
 
             services.AddIdentityWithCookieAndJwt<ApplicationUser, IdentityRole>(Configuration)
                 .AddRoleManager<RoleManager<IdentityRole>>()
@@ -37,7 +41,7 @@
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAuthorization(options =>
             {
