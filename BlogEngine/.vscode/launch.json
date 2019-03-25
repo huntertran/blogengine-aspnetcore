@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/BlogEngine.Api/bin/Debug/netcoreapp2.1/BlogEngine.Api.dll",
+            "program": "${workspaceFolder}/BlogEngine.Api/bin/Debug/netcoreapp2.2/BlogEngine.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/BlogEngine.Api",
             "stopAtEntry": false,
