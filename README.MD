@@ -54,7 +54,7 @@ Later on, as application grow, maintaining both schemes seem to take so much eff
 
 ## 4.2. Front-end
 
-The front-end client application was located in `BlogEngine.Api\blogengin-client`
+The front-end client application was located in `BlogEngine.Api\blogengine-client`
 
 **Libraries used**
 
@@ -82,7 +82,7 @@ Open folder BlogEngine in VSCode, you should see the following
 
 ![first open](https://2.pik.vn/2018f6959117-d102-4a11-b79b-c9a7eafbee2b.png)
 
-Open VSCode terminal and `cd` to `BlogEngine.Api\blogengin-client`
+Open VSCode terminal and `cd` to `BlogEngine.Api\blogengine-client`
 
 Restore npm packages
 
@@ -110,7 +110,7 @@ When debugging with VSCode or Visual Studio, the front-end components does not a
 
 To address this problem, you can start the back-end server, then serve the front-end application as an separated project, pointed to the back-end.
 
-Edit the main.js Axios's base URL setup:
+Edit the main.js Axios' base URL setup:
 
 File `main.js`
 
@@ -118,7 +118,7 @@ File `main.js`
 Vue.prototype.$http.defaults.baseURL = 'https://localhost:44394/api';
 ```
 
-Open VSCode terminal in `blogengin-client` folder and type
+Open VSCode terminal in `blogengine-client` folder and type
 
 ```bash
 npm run serve
