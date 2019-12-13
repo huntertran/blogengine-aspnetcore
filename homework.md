@@ -1,4 +1,5 @@
-# ASP.NET Core 2.1 Intensive training program
+ASP.NET Core 2.1 Intensive training program
+---
 
 This program aims at providing deep dive technical knowledge and practical experience for .NET developers, who want to step in the ASP.NET Core world or to strengthen ASP.NET Core skill. 
 
@@ -15,12 +16,12 @@ This program aims at providing deep dive technical knowledge and practical exper
 
 #### Homework
 
-- Install latest vesion of Visual Studio 2017 (15.7.x) or Visual Studio Code
+- Install latest version of Visual Studio 2017 (15.7.x) or Visual Studio Code
 - Install .NET Core SDK 2.1
 - Create an Empty ASP.NET Core Application
-- Explore the project stucture, project file (.cspro)
-- Write some middlewares: Run, Use, Map
-- Create another project using MVC template with Athentication type Indiviual User Account, run the app
+- Explore the project structure, project file (.csproj)
+- Write some middleware: Run, Use, Map
+- Create another project using MVC template with Authentication type Individual User Account, run the app
 - Learn and use some CLI commands such as dotnet build, dotnet run,...
 - Read the assignment
 
@@ -40,7 +41,7 @@ This program aims at providing deep dive technical knowledge and practical exper
 - Implement features: use both MVC and Razor Pages
 - Create 1 or more TagHelper
 - Create 1 or more ViewComponent
-- Test precompilation feature
+- Test pre-compilation feature
 
 ## Course 3: Entity Framework Core
 
@@ -73,7 +74,7 @@ This program aims at providing deep dive technical knowledge and practical exper
 
 ## Course 6: Configuration and deployment 
 
-- Configuration on mulitple environments
+- Configuration on multiple environments
 - Framework-dependent vs Self-contained deployment
 - Deploy on Windows
 - Deploy on Linux
@@ -108,7 +109,7 @@ This assignment will be introduced to all attendees and start right after the fi
 
 You will be provided the environment to deploy your website
 
-### Soring portions
+### Scoring portions
 
 - 30% commit frequency. For example, the code should be checked-in at least one a week
 - 45% runnable and meet all the requirement
@@ -117,7 +118,7 @@ You will be provided the environment to deploy your website
 ### Passing criteria
 
 - Attend 4/6 courses
-- Complete the assigment and score > 6.5 / 10 
+- Complete the assignment and score > 6.5 / 10 
 
 ### Support
 

@@ -1,3 +1,10 @@
+NASHTECH DOTNET CORE TRAINING
+---
+
+This project is to demonstrate my knowledge for dotnet core and achieve the dotnet core certificate by NashTech Vietnam
+
+The project is moved to github: [https://github.com/huntertran/nashtech-netcoretraining](https://github.com/huntertran/nashtech-netcoretraining)
+
 # 1. Introduction
 
 The main purpose of this repo is for complete the requirement of `ASP.NET Core 2.1` Program at NashTech.
