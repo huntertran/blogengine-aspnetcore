@@ -1,18 +1,14 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import vuetify from './plugins/vuetify';
+
 import Axios from 'axios';
 
 import router from './router';
 import store from './store';
 
-// import "./registerServiceWorker";
 import './plugins/vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 import App from './App.vue';
-
-Vue.use(Vuetify);
 
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false;
@@ -34,6 +30,7 @@ if (token) {
 }
 
 new Vue({
+  vuetify,
   router,
   store,
   render: h => h(App)

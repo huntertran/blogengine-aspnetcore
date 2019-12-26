@@ -157,6 +157,8 @@ export default {
       if (this.isLoggedIn && this.$route.path.startsWith("/admin")) {
         // console.log(this.$route);
         return true;
+      } else {
+        return false;
       }
     }
   },
