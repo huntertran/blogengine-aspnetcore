@@ -1,16 +1,14 @@
-﻿using System;
-
-namespace BlogEngine.Api
+﻿namespace BlogEngine.Api
 {
     using Core.Authorization;
     using Core.Policy;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Models;
     using Repository.Data;
     using Repository.Generic;
@@ -37,11 +35,11 @@ namespace BlogEngine.Api
 
             services.AddIdentityWithCookieAndJwt<ApplicationUser, IdentityRole>(Configuration)
                 .AddRoleManager<RoleManager<IdentityRole>>()
-                .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllers();
 
             services.AddAuthorization(options =>
             {
@@ -53,7 +51,7 @@ namespace BlogEngine.Api
 
             services.AddSpaStaticFiles(config =>
             {
-                config.RootPath = "blogengine-client/dist";
+                config.RootPath = "../blogengine-client/dist";
             });
 
             services.AddScoped<IIdentityService, IdentityService>();
@@ -64,7 +62,7 @@ namespace BlogEngine.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -83,11 +81,13 @@ namespace BlogEngine.Api
                 .AllowAnyMethod());
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "blogengine-client";
+                spa.Options.SourcePath = "../blogengine-client";
             });
         }
     }
