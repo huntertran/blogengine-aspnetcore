@@ -1,7 +1,8 @@
 ﻿namespace BlogEngine.Api
 {
-    using Core.Authorization;
+    using System.Text;
     using Core.Policy;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
     using Models;
     using Repository.Data;
     using Repository.Generic;
@@ -33,10 +35,30 @@
                 //dbContextOptionBuilder.UseSqlServer(Configuration.GetConnectionString("AzureConnection"));
             });
 
-            services.AddIdentityWithCookieAndJwt<ApplicationUser, IdentityRole>(Configuration)
+            services.AddAuthentication()
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateActor = false,
+                        ValidateLifetime = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(
+                                Encoding.ASCII.GetBytes(Configuration.GetValue<string>("AppSettings:SecretKey")))
+                    };
+                });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddIdentityWithCookieAndJwt<ApplicationUser, IdentityRole>(Configuration)
+            //    .AddRoleManager<RoleManager<IdentityRole>>()
+            //    .AddDefaultTokenProviders()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers();
@@ -83,6 +105,8 @@
             app.UseHttpsRedirection();
             //app.UseMvc();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.UseSpa(spa =>
