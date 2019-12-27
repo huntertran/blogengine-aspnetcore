@@ -1,7 +1,7 @@
-namespace BlogEngine.Client.Areas.API.ViewModels
+namespace BlogEngine.Api.ViewModels
 {
+    using Models;
     using System;
-    using BlogEngine.Models;
 
     public class MinifiedPostViewModel
     {

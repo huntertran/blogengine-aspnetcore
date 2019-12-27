@@ -1,6 +1,6 @@
-﻿namespace BlogEngine.Client.Areas.API.ViewModels
+﻿namespace BlogEngine.Api.ViewModels
 {
-    using BlogEngine.Models;
+    using Models;
     using System.Collections.Generic;
 
     public class UserRoles

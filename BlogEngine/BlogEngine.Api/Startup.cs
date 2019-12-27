@@ -1,6 +1,5 @@
 ﻿namespace BlogEngine.Api
 {
-    using System.Text;
     using Core.Policy;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -16,6 +15,7 @@
     using Repository.Generic;
     using Services.Identity;
     using Services.Post;
+    using System.Text;
 
     public class Startup
     {

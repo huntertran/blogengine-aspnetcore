@@ -1,15 +1,15 @@
 ﻿namespace BlogEngine.Api.Controllers
 {
-    using Client.Areas.API.ViewModels;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Repository.Generic;
+    using Services.Post;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Services.Post;
+    using ViewModels;
 
     [Route("api/[controller]/[action]")]
     [ApiController]

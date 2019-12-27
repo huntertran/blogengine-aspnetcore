@@ -1,11 +1,11 @@
 ﻿namespace BlogEngine.Api.Controllers
 {
-    using Client.Areas.API.ViewModels;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Identity;
     using System.Threading.Tasks;
+    using ViewModels;
 
     [Route("api/[controller]/[action]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace BlogEngine.Client.Areas.API.ViewModels
+﻿namespace BlogEngine.Api.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
