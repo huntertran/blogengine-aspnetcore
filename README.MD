@@ -1,15 +1,29 @@
-NASHTECH DOTNET CORE TRAINING
+DOTNET CORE DEMONSTRATION
 ---
 
-This project is to demonstrate my knowledge for dotnet core and achieve the dotnet core certificate by NashTech Vietnam
+**Build status**
 
-The project is moved to github: [https://github.com/huntertran/nashtech-netcoretraining](https://github.com/huntertran/nashtech-netcoretraining)
+![dotnet core build status](https://github.com/huntertran/nashtech-netcoretraining/workflows/dotnet%20core/badge.svg)
 
 # 1. Introduction
 
-The main purpose of this repo is for complete the requirement of `ASP.NET Core 2.1` Program at NashTech.
+> Historically, this project was used for demonstrating my knowledge for dotnet core and achieve the dotnet core certificate by NashTech Vietnam back in November 2018.
+> 
+> The technologies used back then was:
+> * .net core 2.1
+> * Vuejs 3
+> * Vuetifyjs 1.3.0
 
-# 2. Demo
+This is a simple project for demonstrating the use of .net core 3.1 for web application with a separated front-end.
+
+The main function is a dead simple Content Management System for blog posts
+
+Currently, the project is using these technologies:
+* .net core 3.1
+* Vuejs 4
+* Vuetifyjs 2
+
+# 2. Demo (deprecated)
 
 The blog engine is hosted in:
 
@@ -28,28 +42,29 @@ Login credentials
 
 The solution is divided into folders
 
-- course1: for week 1 exercise
-- BlogEngine: for other weeks exercise
-- Published: for final published folder of BlogEngine
-- material: a sub-module to get the latest instruction from trainer
+- `course1`, `material`: legacy training project at Nashtech
+- `blogengine-client`: client project that consume the api
+- `BlogEngine.*`: separated folders for projects, as below
 
-# 4. BlogEngine
+# 4. BlogEngine.*
 
 BlogEngine separated into back-end and front-end.
 
 ## 4.1. Back-end
 
-BlogEngine was build on ASP.NET Core 2.1, target .NET Standard 2.1.
+`BlogEngine` was build on ASP.NET Core 3.1, target .NET Standard 3.1.
 
 BlogEngine was separated to many small projects
-* BlogEngine.Repository: handle data connection between Database and Service layer. The database migration and seed are also placed here.
-    * Data > `blogengine.sql`: Script to create database
-* BlogEngine.Services: handle business logics (but not all logics are implemented here due to short development time).
-* BlogEngine.Models: contains application's models mapped from database
-* BlogEngine.Core: contains convenient codes to use in the main back-end project. As solution grow, this project can be serve for a more clear purpose. For now, it can be combined with main project
-* BlogEngine.Api: main back-end project. Contains controllers to handle user's requests.
+* `BlogEngine.Repository`: handle data connection between Database and Service layer. The database migration and seed are also placed here.
+    * `Data` > `blogengine.sql`: Script to create database
+* `BlogEngine.Services`: handle business logics (but not all logics are implemented here due to short development time).
+* `BlogEngine.Models`: contains application's models mapped from database
+* `BlogEngine.Core`: contains convenient codes to use in the main back-end project. As solution grow, this project can be serve for a more clear purpose. For now, it can be combined with main project
+* `BlogEngine.Api`: main back-end project. Contains controllers to handle user's requests.
 
-**Authorization**
+**Authorization (deprecated)**
+
+> DEPRECATED: The Authorization libraries in .net core 3.1 has breaking changes, make the below solution not working anymore.
 
 At the beginning of the development phase, I would like to support both authorization schemes (Cookie based for normal Asp.net Web Razor and Token based for Single Page Application).
 
@@ -61,17 +76,17 @@ Later on, as application grow, maintaining both schemes seem to take so much eff
 
 ## 4.2. Front-end
 
-The front-end client application was located in `BlogEngine.Api\blogengine-client`
+The front-end client application was located in `blogengine-client`
 
 **Libraries used**
 
-* npm: Package manager
-* Vue: front-end data binding
-* Vuetifyjs: layout
-* Vuex: state manager
-* vue-router: application routing
-* Axios: handle ajax request
-* tinymce: WYSIWYG editor for blog post
+* `npm`: Package manager
+* `Vue`: front-end data binding
+* `Vuetifyjs`: layout
+* `Vuex`: state manager
+* `vue-router`: application routing
+* `Axios`: handle ajax request
+* `tinymce`: WYSIWYG editor for blog post
 
 # 5. Unit test
 
