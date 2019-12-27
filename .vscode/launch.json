@@ -9,14 +9,14 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/BlogEngine.Api/bin/Debug/netcoreapp2.2/BlogEngine.Api.dll",
+            "program": "${workspaceFolder}/BlogEngine.Api/bin/Debug/netcoreapp3.1/BlogEngine.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/BlogEngine.Api",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
                 "enabled": false,
-                "args": "${auto-detect-url}",
+                "args": "${auto-detect-url}/api/posts/all",
                 "windows": {
                     "command": "cmd.exe",
                     "args": "/C start ${auto-detect-url}"
