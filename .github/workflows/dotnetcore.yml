@@ -15,6 +15,5 @@ jobs:
         dotnet-version: 3.1.100
     - name: Build with dotnet
       run: |
-        dotnet test .\BlogEngine.Services.Tests\BlogEngine.Services.Tests.csproj
+        dotnet test ./BlogEngine.Services.Tests/BlogEngine.Services.Tests.csproj
         dotnet build --configuration Release
-        
