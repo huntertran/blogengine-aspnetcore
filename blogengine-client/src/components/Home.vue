@@ -20,7 +20,7 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat color="orange" :to="readPost(post.id)">Read</v-btn>
+              <v-btn text color="orange" :to="readPost(post.id)">Read</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

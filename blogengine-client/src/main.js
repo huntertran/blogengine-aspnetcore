@@ -16,8 +16,8 @@ Vue.config.productionTip = false;
 const token = localStorage.getItem('token');
 
 // Set Axios base URL
-// Vue.prototype.$http.defaults.baseURL = 'https://localhost:44394/api';
-Vue.prototype.$http.defaults.baseURL = '/api';
+Vue.prototype.$http.defaults.baseURL = 'https://localhost:5001/api';
+// Vue.prototype.$http.defaults.baseURL = '/api';
 // Vue.prototype.$http.defaults.baseURL =
 //   'https://hunter-blogengine.azurewebsites.net/api';
 
