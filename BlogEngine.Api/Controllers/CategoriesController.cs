@@ -39,6 +39,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Find([FromQuery] int id)
         {
             if (!ModelState.IsValid)

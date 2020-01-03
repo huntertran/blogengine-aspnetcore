@@ -13,7 +13,7 @@
         <v-data-table
           :headers="headers"
           :items="posts"
-          hide-actions
+          hide-default-footer
           class="elevation-1">
           <template slot="items" slot-scope="props">
             <td>{{ props.item.id }}</td>

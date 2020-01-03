@@ -45,7 +45,7 @@
       <v-flex xs12>
           <v-btn color="success" v-on:click="save">Save</v-btn>
           <v-btn v-if="post.isPublished" color="info" v-on:click="unpublish">Un Publish</v-btn>
-          <v-btn v-else color="info" v-on:click="publish">Publish</v-btn>
+          <!-- <v-btn v-else color="info" v-on:click="publish">Publish</v-btn> -->
       </v-flex>
     </v-layout>
   </v-container>
