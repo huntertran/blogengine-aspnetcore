@@ -111,7 +111,7 @@
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "../blogengine-client";
+                spa.Options.SourcePath = "../blogengine-client/dist";
             });
         }
     }

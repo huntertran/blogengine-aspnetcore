@@ -4,6 +4,10 @@
 
     public class CategoryViewModel : Category
     {
+        public CategoryViewModel() : this(null)
+        {
+        }
+
         public bool IsSelected { get; set; }
 
         public CategoryViewModel(Category cat)
@@ -15,7 +19,6 @@
 
             Id = cat.Id;
             Name = cat.Name;
-
         }
     }
 }
