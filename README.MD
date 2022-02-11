@@ -25,14 +25,9 @@ Currently, the project is using these technologies:
 
 # 2. Demo (deprecated)
 
-The blog engine is hosted in:
+The blog engine is hosted in: [https://hunter-blogengine.azurewebsites.net/](https://hunter-blogengine.azurewebsites.net/)
 
-1. NashTech's Azure: [http://sd2941.azurewebsites.net/](http://sd2941.azurewebsites.net/)
-2. Personal Azure: [https://hunter-blogengine.azurewebsites.net/](https://hunter-blogengine.azurewebsites.net/)
-
-Admin site
-1. NashTech's Azure: [http://sd2941.azurewebsites.net/admin](http://sd2941.azurewebsites.net/admin)
-2. Personal Azure: [https://hunter-blogengine.azurewebsites.net/admin](https://hunter-blogengine.azurewebsites.net/admin)
+Admin site [https://hunter-blogengine.azurewebsites.net/admin](https://hunter-blogengine.azurewebsites.net/admin)
 
 Login credentials
 * Username: admin@blogengine.com
