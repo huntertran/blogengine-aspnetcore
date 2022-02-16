@@ -13,7 +13,11 @@
             "args": [],
             "cwd": "${workspaceFolder}/BlogEngine.Api",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart",
+            "internalConsoleOptions": "neverOpen",
+            "console": "integratedTerminal",
+            "logging": {
+                "moduleLoad": false
+            },
             "launchBrowser": {
                 "enabled": false,
                 "args": "${auto-detect-url}/api/posts/all",
